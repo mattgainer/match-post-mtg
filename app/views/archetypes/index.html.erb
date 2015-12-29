@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 center-text">
+      <h3>Archetypes</h3>
+      <p><%= link_to "Add A New Archetype", "/archetypes/new", class: "btn btn-default" %></p>
+      <table class="table center-text">
+        <tr>
+          <th>Name</th>
+          <th>Format</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <% @archetypes.each do |archetype| %>
+          <tr>
+            <td><%= archetype.name %></td>
+            <td><%= archetype.format.name %></td>
+            <td><%= link_to "Edit #{archetype.name}", "/archetypes/#{archetype.id}/edit", class: "btn btn-default" %></td>
+            <td><%= link_to "Delete #{archetype.name}", "/archetypes/#{archetype.id}", method: :delete, class: "btn btn-default" %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

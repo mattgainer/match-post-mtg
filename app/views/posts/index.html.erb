@@ -1,0 +1,38 @@
+<div id="blog">
+  <div class="container">
+    <%= @posts.each do |format, format_posts| %>
+      <div class="section_header">
+        <h3>recent <%= format %> results</h3>
+      </div>
+          <!-- Post Row -->
+      <div class="row post_row">
+        <!-- Post -->
+        <% format_posts.each do |post| %>
+          <div class="col-sm-4">
+            <div class="post">
+              <br>
+              <div class="img">
+                <a href="/posts/<%= post.id %>">
+                  <img src=<%= post.deck.deck_cards.find_by(key_card: true).card.image_url %> alt=<%= post.deck.name %> class="img-responsive center-margin" />
+                </a>
+              </div>
+              <div class="text">
+                <h5><a href="/posts/<%= post.id %>"><%= post.deck.name %></a></h5>
+                <span class="date"><%= post.dates[:create] %></span>
+                <p>
+                  <%= "#{post.post_text[0..120]}#{"..." if post.post_text.length > 121}" %></p>
+              </div>
+              <div class="author_box">
+                <h6><%= post.deck.user.username %></h6>
+              </div>
+              <a class="plus_wrapper" href="/posts/<%= post.id %>">
+                <span>&#43;</span>
+              </a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <br><br>
+    <% end %>
+  </div>
+</div>

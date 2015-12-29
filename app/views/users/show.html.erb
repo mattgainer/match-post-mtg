@@ -1,0 +1,34 @@
+<div id="blog">
+  <div class="container">
+    <div class="col-md-12">
+      <p>Username: <%= @user.username %></p>
+      <p>Email: <%= @user.email %></p>
+      <p>Full Name: <%= @user.full_name %></p>
+      <%= link_to "Edit User", "/users/edit" %>
+    </div>
+    <div class="section_header">
+      <h3>My Decks</h3>
+    </div>
+    <!-- Post Row -->
+    <div class="row post_row">
+      <!-- Post -->
+      <% @user.decks.each do |deck| %>
+      <div class="col-sm-4">
+        <div class="post">
+          <div class="img">
+            <a href="users/<%= @user.id %>/decks/<%= deck.id %>">
+              <img src=<%= deck.deck_cards.find_by(key_card: true).card.image_url %> alt=<%= deck.name %> class="img-responsive center-margin" />
+            </a>
+          </div>
+          <div class="text">
+            <h5><a href="users/<%= @user.id %>/decks/<%= deck.id %>"><%= deck.name %></a></h5>
+            <span class="date"><%= deck.dates[:update] %></span>
+            </div>
+            <a class="plus_wrapper" href="users/<%= @user.id %>/decks/<%= deck.id %>">
+              <span>&#43;</span>
+            </a>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>

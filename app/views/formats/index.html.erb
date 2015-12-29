@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 center-text">
+      <h3>Formats</h3>
+      <p><%= link_to "Add A New Format", "/formats/new", class: "btn btn-default" %></p>
+      <table class="table center-text center-margin">
+        <% @formats.each do |format| %>
+          <tr>
+            <td><%= link_to "Edit #{format.name}", "/formats/#{format.id}/edit", class: "btn btn-default" %></td>
+            <td><%= link_to "Delete #{format.name}", "/formats/#{format.id}", method: :delete, class: "btn btn-default" %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

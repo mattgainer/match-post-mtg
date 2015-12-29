@@ -1,0 +1,36 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+body {
+  background-image: url("shattered.png");
+}
+.center-text {
+  text-align:center;
+}
+.sign-up-form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.white-text {
+  color:white;
+}
+.left-indent {
+  padding-left:5px;
+}
+.sign-in-form {
+  margin-bottom:8px;
+}
+.form-button {
+  margin-top:5px;
+}
+.center-margin {
+  margin: auto;
+}
+.alert {
+  margin-top: 20px;
+}
+th {
+  text-align: center;
+}
+.add-comment {
+  resize: none;
+}

@@ -1,0 +1,2 @@
+class UserDecksController < ApplicationController
+end
