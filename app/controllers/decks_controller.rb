@@ -2,11 +2,12 @@ class DecksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :authenticate_their_deck!, only: [:update, :create]
   def index
-    
+    @decks = Deck.decks_by_format
   end
 
   def show
     @deck = Deck.find(params[:id])
+    @comments = []
   end
 
   def new
@@ -33,7 +34,7 @@ class DecksController < ApplicationController
   end
 
   def destroy
-
+    Deck.find(params[:id]).update(removed: true)
   end
 
   private

@@ -1,20 +1,36 @@
 <div id="blog">
   <div class="container">
-    <div class="col-md-12">
-      <p>Username: <%= @user.username %></p>
-      <p>Email: <%= @user.email %></p>
-      <p>Full Name: <%= @user.full_name %></p>
-      <%= link_to "Edit User", "/users/edit" %>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <table class="table table-condensed">
+          <tr>
+            <th>Username</th>
+            <td><%= @user.username %></td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <td><%= @user.full_name %></td>
+          </tr>
+        </table>
+        <p class="center-text"><%= link_to "Edit User", "/users/edit" %></p>
+      </div>
     </div>
-    <div class="section_header">
-      <h3>My Decks</h3>
+    <div class="row">
+      <div class="section_header">
+        <h3>My Decks</h3>
+      </div>
     </div>
     <!-- Post Row -->
     <div class="row post_row">
       <!-- Post -->
       <% @user.decks.each do |deck| %>
       <div class="col-sm-4">
-        <div class="post">
+        <div class="post"><br>
           <div class="img">
             <a href="users/<%= @user.id %>/decks/<%= deck.id %>">
               <img src=<%= deck.deck_cards.find_by(key_card: true).card.image_url %> alt=<%= deck.name %> class="img-responsive center-margin" />
@@ -23,12 +39,41 @@
           <div class="text">
             <h5><a href="users/<%= @user.id %>/decks/<%= deck.id %>"><%= deck.name %></a></h5>
             <span class="date"><%= deck.dates[:update] %></span>
-            </div>
-            <a class="plus_wrapper" href="users/<%= @user.id %>/decks/<%= deck.id %>">
-              <span>&#43;</span>
-            </a>
           </div>
+          <a class="plus_wrapper" href="users/<%= @user.id %>/decks/<%= deck.id %>">
+            <span>&#43;</span>
+          </a>
         </div>
-        <% end %>
+      </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="section_header">
+        <h3>My Posts</h3>
       </div>
     </div>
+    <!-- Post Row -->
+    <div class="row post_row">
+      <!-- Post -->
+      <% @posts.each do |post| %>
+      <div class="col-sm-4">
+        <div class="post"><br>
+          <div class="img">
+            <a href="users/<%= @user.id %>/posts/<%= post.id %>">
+              <img src=<%= post.deck.deck_cards.find_by(key_card: true).card.image_url %> alt=<%= post.deck.name %> class="img-responsive center-margin" />
+            </a>
+          </div>
+          <div class="text">
+            <h5><a href="users/<%= @user.id %>/posts/<%= post.id %>"><%= post.deck.name %></a></h5>
+            <span class="date"><%= post.dates[:update] %></span>
+            <p>
+                  <%= "#{post.post_text[0..120]}#{"..." if post.post_text.length > 121}" %></p>
+          </div>
+          <a class="plus_wrapper" href="users/<%= @user.id %>/posts/<%= post.id %>">
+            <span>&#43;</span>
+          </a>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>

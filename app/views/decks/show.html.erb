@@ -2,31 +2,22 @@
 <div id="blog_post">
   <div class="container">
     <div class="section_header">
-      <h3><%= @post.deck.name %></h3>
+      <h3><%= @deck.name %></h3>
     </div>
     <div class="row">
       <div class="col-sm-8 ">
-        <img class="post_pic img-responsive center-margin" src=<%= @post.deck.deck_cards.find_by(key_card: true).card.image_url %> >
-
+        <img class="post_pic img-responsive center-margin" src=<%= @deck.deck_cards.find_by(key_card: true).card.image_url %> >
         <div class="post_content col-md-12">
-          <h2><%= "Vs. #{@post.archetype.name}" %></h2>
-          <h3><%= "By #{@post.deck.user.username}" %></h3>
-          <span class="date">Created <%= @post.dates[:create] %></span>
-          <span class="date">Updated <%= @post.dates[:create] %></span>
-          <p><%= @post.post_text %></p>
+          <h3><%= "By #{@deck.user.username}" %></h3>
+          <span class="date">Created <%= @deck.dates[:create] %></span>
+          <span class="date">Updated <%= @deck.dates[:update] %></span>
         </div>
         <div class="post_content col-md-12">
           <h3>Decklist</h3>
           <div class="col-md-6">
-            <% card_count(@post.deck.deck_cards.where(removed: false)).each_with_index do |card, index| %>
-            <p><%= card[1] %>
-              <a href="#" class="tooltip"><%= card[0] %>
-                <span>
-                  <img src="<%= Card.find_by_name(card[0]).image_url %>" class="card-image">
-                </span>
-              </a>
-            </p>
-            <% if index == card_count(@post.deck.deck_cards).length/2 %>
+            <% card_count(@deck.deck_cards.where(removed: false)).each_with_index do |card, index| %>
+            <p><%= "#{card[1]} #{card[0]}" %></p>
+            <% if index == card_count(@deck.deck_cards).length/2 %>
           </div>
           <div class="col-md-6">
             <% end %>

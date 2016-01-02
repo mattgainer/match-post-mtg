@@ -1,1 +1,35 @@
-index.html.erb
+<div id="blog">
+  <div class="container">
+    <% @decks.each do |format, format_decks| %>
+      <div class="section_header">
+        <h3>recent <%= format %> decks</h3>
+      </div>
+          <!-- Post Row -->
+      <div class="row post_row">
+        <!-- Post -->
+        <% format_decks.each do |deck| %>
+          <div class="col-sm-4">
+            <div class="post">
+              <br>
+              <div class="img">
+                <a href="/decks/<%= deck.id %>">
+                  <img src=<%= deck.deck_cards.find_by(key_card: true).card.image_url %> alt=<%= deck.name %> class="img-responsive center-margin" />
+                </a>
+              </div>
+              <div class="text">
+                <h5><a href="/decks/<%= deck.id %>"><%= deck.name %></a></h5>
+                <span class="date"><%= deck.dates[:create] %></span>
+              </div>
+              <div class="author_box">
+                <h6><%= deck.user.username %></h6>
+              </div>
+              <a class="plus_wrapper" href="/deck/<%= deck.id %>">
+                <span>&#43;</span>
+              </a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

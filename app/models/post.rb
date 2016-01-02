@@ -10,10 +10,7 @@ class Post < ActiveRecord::Base
     posts = {}
     user_id = [user_id] if user_id.class != Array
     Format.all.each do |format|
-      posts["#{format.name.downcase}"] = Post.where("deck_id IN (?)",
-      Deck.where("archetype_id IN (?) AND user_id IN (?)",
-        Archetype.where(format_id: format.id).pluck(:id), user_id
-        ).pluck(:id)).order(:updated_at).limit(3)
+      posts["#{format.name.downcase}"] = Post.joins(deck: {archetype: :format}).where(formats: {name: format.name}, decks: {user_id: user_id})
     end
     return posts
   end

@@ -1,6 +1,6 @@
 <div id="blog">
   <div class="container">
-    <%= @posts.each do |format, format_posts| %>
+    <% @posts.each do |format, format_posts| %>
       <div class="section_header">
         <h3>recent <%= format %> results</h3>
       </div>
@@ -32,7 +32,7 @@
           </div>
         <% end %>
       </div>
-      <br><br>
+      <br><br><br>
     <% end %>
   </div>
 </div>

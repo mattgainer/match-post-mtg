@@ -23,4 +23,10 @@ class ApplicationController < ActionController::Base
   def authenticate_their_post!
     redirect_to "/" unless Post.find(params[:id]).deck.user.id == params[:user_id]
   end
+  def authenticate_correct_user_for_decks!
+    redirect_to "/users/#{params[:user_id]}" unless Deck.find(params[:id]).user_id == params[:user_id]
+  end
+  def authenticate_correct_user_for_posts!
+    redirect_to "/users/#{params[:user_id]}" unless Post.find(params[:id]).deck.user_id == params[:user_id]
+  end
 end
