@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require angular
 //= require theme/bootstrap
 //= require theme/flexslider
 //= require theme/index-slider
