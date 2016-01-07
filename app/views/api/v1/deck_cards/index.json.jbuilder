@@ -1,0 +1,1 @@
+json.array! @deck_cards, partial: "deck_card", as: "deck_card"

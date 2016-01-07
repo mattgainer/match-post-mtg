@@ -6,4 +6,12 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = []
   end
+  def create
+    @post = Post.new(archetype_id: params[:archetype][:archetype_id], result_id: params[:result][:result_id], post_text: params[:post_text], deck_id: params[:deck][:deck_id])
+    if @post.save
+      redirect_to "/posts/#{@post.id}"
+    else
+      render :new
+    end
+  end
 end

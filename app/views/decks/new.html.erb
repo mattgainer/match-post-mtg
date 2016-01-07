@@ -1,0 +1,45 @@
+<div ng-controller="deckFormCtrl" ng-init="formInitialize()">
+  <div id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <form>
+            <div class="row" id="deck_form">
+              <div class="form-group">
+                <p>Deck: <input ng-model="deckInfo.name" class="form-control"></p>
+              </div>
+              <div class="form-group">
+                <p>Format:
+                  <select ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()">
+                  </select>
+                </p>
+              </div>
+              <div class="form-group" ng-disabled="!chosenFormat">
+                <p>Archetype:
+                  <select ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id">
+                </p>
+              </div>
+              <div class="form-group form-inline">
+                <table id="deck-form-table">
+                  <tr>
+                    <th><p>Key Card</p></th>
+                    <th><p>Quantity</p></th>
+                    <th>Card Name</th>
+                  </tr>
+                  <tr class="center-text">
+                    <td><%= radio_button_tag :key_card, true, false %></td>
+                    <td><%= number_field_tag :quantity, 1, {class: "form-control"} %></td>
+                    <td><%= text_field_tag :card_name, "Name", {class: "form-control"} %></td>
+                  </tr>
+                </table>
+              </div>
+            <button class="btn btn-default" onclick="addDeckCardRow()">Add Card</button><br>
+              <%= submit_tag "Add Deck", class: "btn btn-default" %>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

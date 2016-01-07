@@ -5,7 +5,7 @@
       <h3><%= @post.deck.name %></h3>
     </div>
     <div class="row">
-      <div class="col-sm-8 ">
+      <div class="col-md-8 ">
         <img class="post_pic img-responsive center-margin" src=<%= @post.deck.deck_cards.find_by(key_card: true).card.image_url %> >
 
         <div class="post_content col-md-12">
@@ -51,7 +51,7 @@
             <%= form_tag "/comments", method: :post do %>
             <div class="row">
               <div class="col-sm-12">
-                <%= text_area_tag :comment_text,"", rows: "7", class: "form-control add-comment" %>
+                <%= text_area_tag :comment_text,"", rows: "7", class: "form-control no-resize" %>
               </div>
             </div>
             <br>
@@ -67,13 +67,21 @@
       </div>
       <br>
       <!-- SideBar -->
-      <div class="col-sm-4">
-        <div class="sidebar">
-          <div class="box">
-            <div class="sidebar_header"></div>
-            <div class="box last">
-              <div class="sidebar_header">
-                <h4>Words to make this column as wide as it can be</h4>
+      <div class="col-md-4">
+        <div ng-controller="quickSearchCtrl">
+          <div class="sidebar">
+            <div class="box">
+              <div class="sidebar_header center-text"><h3>Quick Card Lookup</h3></div>
+              <div class="box last">
+                <div class="sidebar_header center-text">
+                  <h4 class="left-indent">Card Name:</h4>
+                  <p><input ng-model="cardName" ng-change="lookUpCard(cardName)" class="form-control"></p>
+                  <div class="search-image">
+                    <img src="{{foundCardImageURL}}" ng-if="cardName" class="img-responsive center-margin ">
+                  </div>
+                  <h3 class="center-text">{{foundCardName}}</h3>
+                  <button clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default">Copy Card Name</button>
+                </div>
               </div>
             </div>
           </div>

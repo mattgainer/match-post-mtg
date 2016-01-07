@@ -1,0 +1,1 @@
+json.array! @archetypes, partial: 'archetype', as: :archetype

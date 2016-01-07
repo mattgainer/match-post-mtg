@@ -1,0 +1,1 @@
+json.partial! 'deck_card', deck_card: @deck_card

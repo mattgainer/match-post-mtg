@@ -31,7 +31,6 @@ gem 'thematic'
 
 gem 'unirest'
 
-gem 'activemodel-associations'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

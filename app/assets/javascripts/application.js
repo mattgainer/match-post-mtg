@@ -13,10 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular
+//= require app
 //= require theme/bootstrap
 //= require theme/flexslider
 //= require theme/index-slider
 //= require theme/jquery.countdown.min
 //= require theme/jquery.isotope.min
 //= require theme/theme
+//= require angular-clipboard
 //= require_tree .

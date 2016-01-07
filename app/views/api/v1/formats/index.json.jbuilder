@@ -1,0 +1,1 @@
+json.array! @formats, partial: 'format', as: :format

@@ -1,0 +1,33 @@
+<div id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+      <h2>Generate a new Post</h2>
+        <%= form_tag "/posts", method: :post do %>
+          <div class="row" id="deck_form">
+            <div class="form-group">
+              <%= label_tag :deck_id, "Deck" %><br>
+              <%= collection_select :deck, :deck_id, Deck.where(id: current_user.id), :id, :name,{}, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= label_tag :archetype_id, "Enemy Archetype" %><br>
+              <%= collection_select :archetype, :archetype_id, Archetype.all, :id, :name,{}, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= label_tag :result_id, "Match Result" %><br>
+              <%= collection_select :result, :result_id, Result.all, :id, :text_result,{}, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= label_tag :post_text, "Post Text" %>
+              <%= text_area_tag :post_text,"",rows: 7, class: "form-control no-resize" %>
+            </div>
+            <div class="form-group">
+              <%= submit_tag "Add Deck", class: "btn btn-default" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

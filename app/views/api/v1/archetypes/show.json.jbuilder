@@ -1,0 +1,1 @@
+json.partial! 'archetype', archetype: @archetype
