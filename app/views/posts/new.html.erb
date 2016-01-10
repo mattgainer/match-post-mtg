@@ -1,32 +1,57 @@
-<div id="contact">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-      <h2>Generate a new Post</h2>
-        <%= form_tag "/posts", method: :post do %>
-          <div class="row" id="deck_form">
+<div ng-controller="newPostFormCtrl" ng-init="formInitialize(<%= current_user.id %>)">
+  <div id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-5 silver-background">
+          <h2>Generate a new Post</h2>
+          <form>
+          <div class="row padding-15" id="deck_form">
             <div class="form-group">
-              <%= label_tag :deck_id, "Deck" %><br>
-              <%= collection_select :deck, :deck_id, Deck.where(id: current_user.id), :id, :name,{}, class: "form-control" %>
+              <h3>Deck:</h3>  
+              <select ng-model="newPost.deck_id" ng-options="deck.id as deck.name for deck in userDecks track by deck.id" ng-change="selectArchetypes()" class="form-control"></select>
             </div>
             <div class="form-group">
-              <%= label_tag :archetype_id, "Enemy Archetype" %><br>
-              <%= collection_select :archetype, :archetype_id, Archetype.all, :id, :name,{}, class: "form-control" %>
+              <h3>Opposing Archetype:</h3>  
+              <select ng-model="newPost.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" class="form-control"></select>
             </div>
             <div class="form-group">
-              <%= label_tag :result_id, "Match Result" %><br>
-              <%= collection_select :result, :result_id, Result.all, :id, :text_result,{}, class: "form-control" %>
+            <h3>Result:</h3> 
+              <select ng-model="newPost.result" ng-options="result.id as result.text_result for result in results track by result.id" class="form-control"></select>
             </div>
             <div class="form-group">
-              <%= label_tag :post_text, "Post Text" %>
-              <%= text_area_tag :post_text,"",rows: 7, class: "form-control no-resize" %>
+              <h3>Post Text:</h3>   
+              <textarea class="form-control no-resize" rows=7 ng-model="newPost.post_text"></textarea>
             </div>
             <div class="form-group">
-              <%= submit_tag "Add Deck", class: "btn btn-default" %>
+              <button class="btn btn-default" ng-click="submitPost()">Submit Post</button>
+              <button class="btn btn-default" ng-click="testButton()">Test Button</button>
             </div>
           </div>
-        <% end %>
+          </form>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4" id="blog_post">
+          <datalist id="card_names" ng-if="cardName"><option ng-repeat="card in searchedCards">{{card.name}}</option></datalist>
+          <div class="sidebar">
+            <div class="box">
+              <div class="sidebar_header center-text"><h3>Quick Card Lookup</h3></div>
+              <div class="box last">
+                <div class="sidebar_header center-text">
+                  <div class="search-image">
+                    <img ng-src="{{foundCardImageURL}}" ng-if="cardName" class="img-responsive center-margin ">
+                  </div>
+                  <div class="search-copy">
+                    <h4 class="left-indent">Card Name:</h4>
+                    <p><input list="card_names" ng-model="cardName" ng-keyup="lookUpCard(cardName)" class="form-control" autocomplete="on"></p>
+                    <h3 ng-if="cardName" class="center-text">{{foundCardName}}</h3>
+                    <button ng-if="cardName" clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default">Copy Card Name</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

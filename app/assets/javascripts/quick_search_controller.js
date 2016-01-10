@@ -3,16 +3,22 @@
 
   angular.module("app").controller("quickSearchCtrl", function($scope, $http) {
     window.$scope = $scope;
-    // Using ng-change
     $scope.lookUpCard = function(input) {
+      if (input.substring(0,3).toLowerCase() === "aet") {
+        input = "Æt" + input.substring(3,input.length);
+      }
       $http.get("http://api.deckbrew.com/mtg/cards/typeahead?q=" + input).then(function(response){
-        $scope.foundCardImageURL = response.data[0].editions[response.data[0].editions.length - 1].image_url
-        $scope.foundCardName = response.data[0].name
+        var cardEditions = response.data[0].editions;
+        for (var i=cardEditions.length - 1;i>=0;i--) {
+          if (parseInt(cardEditions[i].multiverse_id)) {
+            $scope.foundCardImageURL = cardEditions[i].image_url
+            break;
+          }
+        }
+        $scope.foundCardName = response.data[0].name;
+        $scope.searchedCards = response.data;
       });
     }
-    $scope.addCardToClipboard = function() {
-      $scope.foundCardName
-    };
     $scope.success = function () {
     };
 

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :deck_cards
       resources :archetypes
       resources :formats
+      resources :results
     end
   end
 

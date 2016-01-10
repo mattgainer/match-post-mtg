@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104004013) do
+ActiveRecord::Schema.define(version: 20160109195841) do
 
   create_table "archetypes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160104004013) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.boolean  "key_card",             default: false
+    t.integer  "quantity",   limit: 4
   end
 
   create_table "decks", force: :cascade do |t|

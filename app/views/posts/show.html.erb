@@ -1,86 +1,88 @@
-
-<div id="blog_post">
-  <div class="container">
-    <div class="section_header">
-      <h3><%= @post.deck.name %></h3>
-    </div>
-    <div class="row">
-      <div class="col-md-8 ">
-        <img class="post_pic img-responsive center-margin" src=<%= @post.deck.deck_cards.find_by(key_card: true).card.image_url %> >
-
-        <div class="post_content col-md-12">
-          <h2><%= "Vs. #{@post.archetype.name}" %></h2>
-          <h3><%= "By #{@post.deck.user.username}" %></h3>
-          <span class="date">Created <%= @post.dates[:create] %></span>
-          <span class="date">Updated <%= @post.dates[:create] %></span>
-          <p><%= @post.post_text %></p>
-        </div>
-        <div class="post_content col-md-12">
-          <h3>Decklist</h3>
-          <div class="col-md-6">
-            <% card_count(@post.deck.deck_cards.where(removed: false)).each_with_index do |card, index| %>
-            <p><%= card[1] %>
-              <a href="#" class="tooltip"><%= card[0] %>
-                <span>
-                  <img src="<%= Card.find_by_name(card[0]).image_url %>" class="card-image">
-                </span>
-              </a>
-            </p>
-            <% if index == card_count(@post.deck.deck_cards).length/2 %>
-          </div>
-          <div class="col-md-6">
-            <% end %>
-          </div>
-          <% end %>
-        </div>
-        <div class="comments col-md-12">
-        <% @comments.each do |comment| %>
-          <div class="comment">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="name"><%= comment.user.username %></div>
-                <div class="date"><%= comment.dates[:create] %></div>
-                <div class="response"><%= comment.comment_text %></div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-          <% if current_user %>
-          <div class="new_comment">
-            <h4>Add Comment</h4>
-            <%= form_tag "/comments", method: :post do %>
-            <div class="row">
-              <div class="col-sm-12">
-                <%= text_area_tag :comment_text,"", rows: "7", class: "form-control no-resize" %>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-sm-12">
-                <%= submit_tag "Add Comment", class: "btn send" %>
-              </div>
-            </div>
-            <% end %>
-          <% end %>
-          </div>
-        </div>
+<div ng-controller="quickSearchCtrl">
+  <div id="blog_post">
+    <div class="container">
+      <div class="section_header">
+        <h3><%= @post.deck.name %></h3>
       </div>
-      <br>
-      <!-- SideBar -->
-      <div class="col-md-4">
-        <div ng-controller="quickSearchCtrl">
+      <div class="row">
+        <div class="col-md-8 ">
+          <img class="post_pic img-responsive center-margin" src=<%= @post.deck.deck_cards.find_by(key_card: true).card.image_url %> >
+
+          <div class="post_content col-md-12">
+            <h2><%= "Vs. #{@post.archetype.name}" %></h2>
+            <h3><%= "By #{@post.deck.user.username}" %></h3>
+            <span class="date">Created <%= @post.dates[:create] %></span>
+            <span class="date">Updated <%= @post.dates[:create] %></span>
+            <p><%= simple_format(@post.post_text) %></p>
+          </div>
+          <div class="post_content col-md-12">
+            <h3>Decklist</h3>
+            <div class="col-md-6">
+              <% @post.deck.deck_cards.where(removed: false).each_with_index do |deck_card, index| %>
+              <p><%= deck_card.quantity %>
+                <a href="#" class="tooltip"><%= deck_card.card.name %>
+                  <span>
+                    <img src="<%= deck_card.card.image_url %>" class="card-image tooltip-image">
+                  </span>
+                </a>
+              </p>
+              <% if index + 1 == @post.deck.deck_cards.where(removed: false).count/2 %>
+            </div>
+            <div class="col-md-6">
+              <% end %>
+            <% end %>
+            </div>
+          </div>
+          <div class="comments col-md-12">
+          <% @comments.each do |comment| %>
+            <div class="comment">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="name"><%= comment.user.username %></div>
+                  <div class="date"><%= comment.dates[:create] %></div>
+                  <div class="response"><%= comment.comment_text %></div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+            <% if current_user %>
+            <div class="new_comment">
+              <h4>Add Comment</h4>
+              <%= form_tag "/comments", method: :post do %>
+              <div class="row">
+                <div class="col-sm-12">
+                  <%= text_area_tag :comment_text,"", rows: "7", class: "form-control no-resize" %>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-sm-12">
+                  <%= submit_tag "Add Comment", class: "btn send" %>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
+            </div>
+          </div>
+        </div>
+        <br>
+        <!-- SideBar -->
+        <div class="col-md-4">
+          <datalist id="card_names" ng-if="cardName"><option ng-repeat="card in searchedCards">{{card.name}}</option></datalist>
           <div class="sidebar">
             <div class="box">
               <div class="sidebar_header center-text"><h3>Quick Card Lookup</h3></div>
               <div class="box last">
                 <div class="sidebar_header center-text">
-                  <h4 class="left-indent">Card Name:</h4>
-                  <p><input ng-model="cardName" ng-change="lookUpCard(cardName)" class="form-control"></p>
                   <div class="search-image">
-                    <img src="{{foundCardImageURL}}" ng-if="cardName" class="img-responsive center-margin ">
+                    <img ng-src="{{foundCardImageURL}}" ng-if="cardName" class="img-responsive center-margin ">
                   </div>
-                  <h3 class="center-text">{{foundCardName}}</h3>
-                  <button clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default">Copy Card Name</button>
+                  <div class="search-copy">
+                    <h4 class="left-indent">Card Name:</h4>
+                    <p><input list="card_names" ng-model="cardName" ng-keyup="lookUpCard(cardName)" class="form-control" autocomplete="on"></p>
+                    <h3 ng-if="cardName" class="center-text">{{foundCardName}}</h3>
+                    <button ng-if="cardName" clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default">Copy Card Name</button>
+                  </div>
                 </div>
               </div>
             </div>

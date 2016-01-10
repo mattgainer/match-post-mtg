@@ -16,7 +16,11 @@ class Card
     final = {}
     final[:name] = hash["name"]
     final[:id] = hash["editions"][-1]["multiverse_id"]
-    final[:image_url] = hash["editions"][-1]["image_url"]
+    hash["editions"].each do |edition|
+      if edition["multiverse_id"] != 0
+        final[:image_url] = edition["image_url"]
+      end
+    end
     Card.new(final)
   end
 

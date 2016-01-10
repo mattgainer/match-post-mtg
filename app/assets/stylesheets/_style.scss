@@ -64,7 +64,6 @@ th {
   position:absolute;
   top:0;
   left:0;
-  z-index:1000;
   width:auto;
   margin: 0 auto;
   overflow:hidden;
@@ -77,5 +76,26 @@ th {
   width: 100%;
 }
 .search-image {
-  min-height: 350px;
+  height: 350px;
+}
+.card-quantity {
+  max-width: 30%;
+}
+img.tooltip-image {
+  z-index:1000;
+}
+.search-copy {
+  height: 150px;
+}
+.silver-background {
+  background-image: url("theme/backgrounds/silver.jpg");
+  background-size: cover;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 1px #cfcfcf;
+  border: 2px solid white;
+  margin-bottom: 20px;
+}
+.padding-15 {
+  padding-left: 15px;
+  padding-right: 15px;
 }

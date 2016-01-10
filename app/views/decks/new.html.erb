@@ -1,43 +1,76 @@
-<div ng-controller="deckFormCtrl" ng-init="formInitialize()">
+<div ng-controller="newDeckFormCtrl" ng-init="formInitialize()">
   <div id="contact">
     <div class="container">
       <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5 silver-background">
           <form>
-            <div class="row" id="deck_form">
+            <div class="row padding-15" id="deck_form">
               <div class="form-group">
-                <p>Deck: <input ng-model="deckInfo.name" class="form-control"></p>
+                <h3>Deck Name: <input ng-model="deckInfo.name" class="form-control"></h3>
               </div>
               <div class="form-group">
-                <p>Format:
-                  <select ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()">
+                <h3>Format:
+                  <select ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()" class="form-control">
                   </select>
-                </p>
+                </h3>
               </div>
-              <div class="form-group" ng-disabled="!chosenFormat">
-                <p>Archetype:
-                  <select ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id">
-                </p>
+              <div class="form-group">
+                <h3>Archetype:
+                  <select ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" ng-disabled="!chosenFormat" class="form-control"></select>
+                </h3>
               </div>
-              <div class="form-group form-inline">
-                <table id="deck-form-table">
+              <div class="form-group form-inline center-text">
+                <datalist id="card_names">
+                  <option ng-repeat="card in searchedCards">{{card.name}}</option>
+                </datalist>
+                <h3>Cards:</h3>
+                <table class="table center-text table-condensed">
                   <tr>
-                    <th><p>Key Card</p></th>
-                    <th><p>Quantity</p></th>
+                    <th>Key Card</th>
+                    <th>Quantity</th>
                     <th>Card Name</th>
                   </tr>
-                  <tr class="center-text">
-                    <td><%= radio_button_tag :key_card, true, false %></td>
-                    <td><%= number_field_tag :quantity, 1, {class: "form-control"} %></td>
-                    <td><%= text_field_tag :card_name, "Name", {class: "form-control"} %></td>
+                  <tr ng-repeat="deckCard in newDeckCards">
+                    <td><input type="radio" ng-model="deckCard.key_card" name="key_card" value="true"></td>
+                    <td><input type="number" ng-model="deckCard.quantity" class="form-control card-quantity center-text" min="1" ng-change="addToTotalQuantity()"></td>
+                    <td><input type="text" list="card_names" ng-model="deckCard.name" ng-change="lookUpCard(deckCard.name)" class="form-control center-text"></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>{{totalQuantity}}</td>
+                    <td>Total Cards</td>
                   </tr>
                 </table>
+                <div id="deck_cards_buttons">
+                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="addDeckCard(1)">Add Another Card</a>
+                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="removeDeckCard(1)">Remove Last Card</a><br>
+                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="addDeckCard(5)">Add 5 Cards</a>
+                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="removeDeckCard(5)">Remove 5 Cards</a>
+                </div>
               </div>
-            <button class="btn btn-default" onclick="addDeckCardRow()">Add Card</button><br>
-              <%= submit_tag "Add Deck", class: "btn btn-default" %>
+              <div class="form-group center-text">
+                <button class="btn btn-default" ng-click="submitDeck(<%= current_user.id %>)">Submit Deck</button>
+              </div>
             </div>
           </form>
+        </div>
+        <div class="col-sm-1"></div>
+        <div id="blog_post" class="col-sm-4">
+          <div class="sidebar">
+            <div class="box">
+              <div class="box last">
+                <div class="sidebar_header center-text">
+                  <div class="search-image">
+                    <img ng-src="{{foundCardImageURL}}" ng-if="foundCardName" class="img-responsive center-margin">
+                  </div>
+                  <div>
+                    <h3 ng-if="foundCardName" class="center-text">{{foundCardName}}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
