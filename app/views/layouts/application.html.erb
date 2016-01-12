@@ -22,6 +22,10 @@
                   <ul class="dropdown-menu">
                     <li><%= link_to "New Deck", "/decks/new" %></li>
                     <li><%= link_to "New Post", "/posts/new" %></li>
+                    <% if current_user.admin? %>
+                    <li><%= link_to "New Archetype", "/archetypes/new" %></li>
+                    <li><%= link_to "New Format", "/formats/new" %></li>
+                    <% end %>
                   </ul>
                 </li>
               <% end %>

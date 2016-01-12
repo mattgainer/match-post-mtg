@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.where(removed: false)
   end
   def show
     @post = Post.find(params[:id])

@@ -9,28 +9,37 @@
           <img class="post_pic img-responsive center-margin" src=<%= @deck.deck_cards.find_by(key_card: true).card.image_url %> >
           <div class="post_content col-md-12">
             <h3><%= "By #{@deck.user.username}" %></h3>
-            <span class="date">Created <%= @deck.dates[:create] %></span>
             <span class="date">Updated <%= @deck.dates[:update] %></span>
+            <span class="date">Created <%= @deck.dates[:create] %></span>
             <% if current_user.id == @deck.user.id %>
             <%= link_to "Delete Deck", "/decks/#{@deck.id}", method: :delete, class: "btn btn-default" %>
             <%= link_to "Edit Deck", "/decks/#{@deck.id}/edit", class: "btn btn-default" %>
             <% end %>
           </div>
-          <div class="post_content col-md-12">
+          <div id="decklist" class="post_content col-md-12">
             <h3>Decklist</h3>
-            <div class="col-md-6">
-              <% @deck.deck_cards.where(removed: false).each_with_index do |deck_card, index| %>
-              <p><%= deck_card.quantity %>
-                <a href="#" class="tooltip"><%= deck_card.card.name %>
+            <div class="col-md-6 maindeck">
+              <h4>Main Deck:</h4>
+              <% @deck.deck_cards.where(removed: false, sideboard: false).each do |deck_card| %>
+              <p class="lineheight-5 margin-bottom-0"><%= deck_card.quantity %>
+                <a href="#decklist" class="tooltip"><%= deck_card.card.name %>
                   <span>
                     <img src="<%= deck_card.card.image_url %>" class="card-image tooltip-image">
                   </span>
                 </a>
               </p>
-              <% if index == @deck.deck_cards.where(removed: false).count/2 %>
+              <% end %>
             </div>
             <div class="col-md-6">
-              <% end %>
+              <h4>Sideboard:</h4>
+              <% @deck.deck_cards.where(removed: false, sideboard: true).each do |deck_card| %>
+              <p ><%= deck_card.quantity %>
+                <a href="#decklist" class="tooltip"><%= deck_card.card.name %>
+                  <span>
+                    <img src="<%= deck_card.card.image_url %>" class="card-image tooltip-image">
+                  </span>
+                </a>
+              </p>
               <% end %>
             </div>
           </div>
@@ -58,7 +67,7 @@
               <br>
               <div class="row">
                 <div class="col-sm-12">
-                  <%= submit_tag "Add Comment", class: "btn send" %>
+                  <%= submit_tag "Add Comment", class: "btn btn-default send" %>
                 </div>
               </div>
               <% end %>

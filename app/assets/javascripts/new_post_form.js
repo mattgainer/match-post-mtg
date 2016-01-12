@@ -20,9 +20,7 @@
       });
     }
     $scope.lookUpCard = function(input) {
-      if (input.substring(0,3).toLowerCase() === "aet") {
-        input = "Æt" + input.substring(3,input.length);
-      }
+      input.replace(/aet/g,"Æt").replace(/Aet/g,"Æt");
       $http.get("http://api.deckbrew.com/mtg/cards/typeahead?q=" + input).then(function(response){
         var cardEditions = response.data[0].editions;
         for (var i=cardEditions.length - 1;i>=0;i--) {

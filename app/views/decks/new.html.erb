@@ -2,8 +2,7 @@
   <div id="contact">
     <div class="container">
       <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-5 silver-background">
+        <div class="col-sm-7 silver-background">
           <form>
             <div class="row padding-15" id="deck_form">
               <div class="form-group">
@@ -30,11 +29,13 @@
                     <th>Key Card</th>
                     <th>Quantity</th>
                     <th>Card Name</th>
+                    <th>Sideboard?</th>
                   </tr>
                   <tr ng-repeat="deckCard in newDeckCards">
-                    <td><input type="radio" ng-model="deckCard.key_card" name="key_card" value="true"></td>
+                    <td><input type="radio" ng-model="deckCard.key_card" name="key_card" ng-value="true" ng-click="removePrevious($index)"></td>
                     <td><input type="number" ng-model="deckCard.quantity" class="form-control card-quantity center-text" min="1" ng-change="addToTotalQuantity()"></td>
                     <td><input type="text" list="card_names" ng-model="deckCard.name" ng-change="lookUpCard(deckCard.name)" class="form-control center-text"></td>
+                    <td><div class="checkbox"><input type="checkbox" ng-value="true" ng-model="deckCard.sideboard" class="center-text"></div></td>
                   </tr>
                   <tr>
                     <td></td>

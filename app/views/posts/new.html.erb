@@ -13,7 +13,7 @@
             </div>
             <div class="form-group">
               <h3>Opposing Archetype:</h3>  
-              <select ng-model="newPost.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" class="form-control"></select>
+              <select ng-model="newPost.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" class="form-control" ng-disabled="!newPost.deck_id"></select>
             </div>
             <div class="form-group">
             <h3>Result:</h3> 
@@ -25,7 +25,6 @@
             </div>
             <div class="form-group">
               <button class="btn btn-default" ng-click="submitPost()">Submit Post</button>
-              <button class="btn btn-default" ng-click="testButton()">Test Button</button>
             </div>
           </div>
           </form>

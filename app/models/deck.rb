@@ -11,7 +11,7 @@ class Deck < ActiveRecord::Base
     decks = {}
     user_id = [user_id] if user_id.class != Array
     Format.all.each do |format|
-      decks["#{format.name.downcase}"] = Deck.joins(archetype: :format).where(formats: {name: format.name}, decks: {user_id: user_id}).order(:updated_at).limit(3)
+      decks["#{format.name.downcase}"] = Deck.joins(archetype: :format).where(formats: {name: format.name}, decks: {user_id: user_id, removed: false}).order(:updated_at).limit(3)
     end
     return decks
   end

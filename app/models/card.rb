@@ -15,9 +15,9 @@ class Card
   def self.unirest_new(hash = {})
     final = {}
     final[:name] = hash["name"]
-    final[:id] = hash["editions"][-1]["multiverse_id"]
     hash["editions"].each do |edition|
       if edition["multiverse_id"] != 0
+        final[:id] = edition["multiverse_id"]
         final[:image_url] = edition["image_url"]
       end
     end

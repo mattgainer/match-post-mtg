@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  angular.module("app").controller("newDeckFormCtrl", function($scope, $http, $location) {
+  angular.module("app").controller("newDeckFormCtrl", function($scope, $http, $window) {
     window.$scope = $scope;
 
     $scope.formInitialize = function() {
@@ -13,9 +13,7 @@
       $scope.newCard = {};
     }
     $scope.lookUpCard = function(input) {
-      if (input.substring(0,3).toLowerCase() === "aet") {
-        input = "Æt" + input.substring(3,input.length);
-      }
+      input.replace(/aet/g,"Æt").replace(/Aet/g,"Æt");
       $http.get("http://api.deckbrew.com/mtg/cards/typeahead?q=" + input).then(function(response){
         var cardEditions = response.data[0].editions;
         for (var i=cardEditions.length - 1;i>=0;i--) {
@@ -54,8 +52,8 @@
     }
     $scope.postCard = function(newCard, index) {
       $http.post("/api/v1/deck_cards.json", newCard).then(function(response) {
-        if (index === newDeckCards.length - 1) {
-        $location.path("/decks/" + newCard.deck_id);
+        if (index === $scope.newDeckCards.length - 1) {
+          $window.location.href = "/decks/" + newCard.deck_id;
         }
       });
     }
@@ -83,6 +81,13 @@
       $http.post("/api/v1/decks.json", $scope.deckInfo).then(function(deck) {
         $scope.submitCards(deck.data.id);
       });
+    }
+    $scope.removePrevious = function(index) {
+      for (var i=0; i<$scope.newDeckCards.length; i++) {
+        if (i !== index) {
+          $scope.newDeckCards[i].key_card = false;
+        }
+      }
     }
   });
 }());
