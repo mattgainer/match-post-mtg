@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
   belongs_to :deck
   belongs_to :archetype
+  belongs_to :result
 
   def dates
     {create: created_at.strftime("%D"),update: updated_at.strftime("%D")}

@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   def index
-    @posts = Post.where(removed: false)
+    @posts = Post.joins(:deck).where(posts: {removed: false}, decks: {removed: false})
   end
   def show
     @post = Post.find(params[:id])
@@ -16,5 +16,8 @@ class Api::V1::PostsController < ApplicationController
   def update
   end
   def destroy
+  end
+  def search
+    @posts = Post.joins(:deck).where(posts: {removed: false}, decks: {removed: false})
   end
 end

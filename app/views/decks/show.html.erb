@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-sm-8 silver-background">
           <div class="section_header center-text">
-            <h3><%= @deck.name %></h3>
+            <h3><%= "#{@deck.name} - #{@deck.archetype.name}" %></h3>
           </div>
           <img class="post_pic img-responsive center-margin" src=<%= @deck.deck_cards.find_by(key_card: true).card.image_url %> >
           <div class="post_content col-md-12">

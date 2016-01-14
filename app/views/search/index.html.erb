@@ -1,0 +1,131 @@
+<div id="blog_post" ng-controller="searchCtrl" ng-init="initializeSearch()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 silver-background">
+        <div class="section_header">
+          <h3>Search</h3>
+        </div>
+        <form class="center-text">
+          <div class="form-group col-md-3">
+          <h4>Search Decks or Posts:</h4>
+            <label>
+              <input ng-model="searchType" type="radio" name="deck_or_post" value="post"> Post
+            </label><br>
+            <label>
+              <input ng-model="searchType" type="radio" name="deck_or_post" value="deck"> Deck
+            </label>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="format">Format:</label><select id="format" class="form-control" ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()"><option value=""></option></select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="archetype">Archetype:</label><select id="archetype" ng-disabled="!chosenFormat" ng-model="archetype_id" class="form-control" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id"><option value=""></option></select>
+            <label for="opp_archetype" ng-if="typeOfSearch('post', 'dynamic')">Opposing Archetype:</label><select ng-if="typeOfSearch('post', 'dynamic')" id="opp_archeytpe" ng-disabled="!chosenFormat" ng-model="opp_archetype_id" class="form-control" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id"><option value=""></option></select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="user">User:</label>
+            <input id="user" type="text" class="form-control" ng-model="searchUser">
+          </div>
+          <div class="form-group col-md-12 center-text">
+            <button class="btn btn-default" ng-click="newSearch()">Search</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-bordered table-hover center-text no-select">
+          <thead>
+            <tr ng-if="typeOfSearch('post', 'static')">
+              <th></th>
+              <th ng-dblclick="toggleOrder('created_at')">
+                Date Created
+                <span ng-if="showChevron(true, 'created_at')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'created_at')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('updated_at')">
+                Date Updated
+                <span ng-if="showChevron(true, 'updated_at')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'updated_at')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('deck.name')">
+                Deck Name
+                <span ng-if="showChevron(true, 'deck.name')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'deck.name')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('deck.archetype.name')">
+                Deck Archetype
+                <span ng-if="showChevron(true, 'deck.archetype.name')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'deck.archetype.name')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('archetype.name')">
+                Opposing Archetype
+                <span ng-if="showChevron(true, 'archetype.name')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'archetype.name')" class="glyphicon glyphicon-chevron-down"></span>                
+              </th>
+              <th ng-dblclick="toggleOrder('deck.user.username')">
+                Created By
+                <span ng-if="showChevron(true, 'deck.user.username')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'deck.user.username')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+            </tr>
+            <tr ng-if="typeOfSearch('deck', 'static')">
+              <th></th>
+              <th ng-dblclick="toggleOrder('created_at')">
+                Date Created
+                <span ng-if="showChevron(true, 'created_at')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'created_at')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('updated_at')">
+                Date Updated
+                <span ng-if="showChevron(true, 'updated_at')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'updated_at')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('name')">
+                Deck Name
+                <span ng-if="showChevron(true, 'name')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'name')" class="glyphicon glyphicon-chevron-down"></span>                
+              </th>
+              <th ng-dblclick="toggleOrder('archetype.name')">
+                Deck Archetype
+                <span ng-if="showChevron(true, 'archetype.name')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'archetype.name')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('user.username')">
+                Created By
+                <span ng-if="showChevron(true, 'user.username')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'user.username')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr ng-repeat="post in posts | orderBy: orderAttribute:direction" ng-if="typeOfSearch('post', 'static')" ng-dblclick="goTo('post', post.id)">
+              <td>{{$index + 1}}</td>
+              <td>{{post.created}}</td>
+              <td>{{post.updated}}</td>
+              <td>{{post.deck.name}}</td>
+              <td>{{post.deck.archetype.name}}</td>
+              <td>{{post.archetype.name}}</td>
+              <td>{{post.deck.user.username}}</td>
+            </tr>
+            <tr ng-repeat="deck in decks | orderBy: orderAttribute:direction" ng-if="typeOfSearch('deck', 'static')" ng-dblclick="goTo('deck', deck.id)">
+              <td>{{$index + 1}}</td>
+              <td>{{deck.created}}</td>
+              <td>{{deck.updated}}</td>
+              <td>{{deck.name}}</td>
+              <td>{{deck.archetype.name}}</td>
+              <td>{{deck.user.username}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12 center-text center-margin">
+        <div class="paginator-container">
+          <ul class="pagination">
+            <li><a href="#">Prev</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

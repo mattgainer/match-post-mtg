@@ -1,0 +1,1 @@
+json.array! @posts, partial: 'search', as: :post

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :decks, controller: :user_decks
     resources :posts, controller: :user_posts
   end
+  resources :search, only: [:index]
   resources :posts
   resources :user_types
   resources :archetypes
@@ -13,7 +14,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get "/posts/search", to: 'posts#search'
       resources :posts
+      get '/decks/search', to: 'decks#search'
       resources :decks
       resources :deck_cards
       resources :archetypes

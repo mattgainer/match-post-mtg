@@ -28,4 +28,7 @@ class Api::V1::DecksController < ApplicationController
     @decks = Deck.where(removed: false)
     render :index
   end
+  def search
+    @decks = Deck.where(removed: false)
+  end
 end
