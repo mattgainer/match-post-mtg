@@ -81,6 +81,9 @@
       $scope.orderAttribute = "updated_at"
       $scope.direction = true;
       $scope.startingIndex = 0;
+      if (!$scope.searchUser) {
+        $scope.searchUser = null;
+      }
       var search = {
         typeName: $scope.searchType,
         format: $scope.format_id,
