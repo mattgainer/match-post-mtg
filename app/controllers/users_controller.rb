@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = Post.where("deck_id IN (?)", Deck.where(user_id: @user.id).pluck(:id)).order(:updated_at).limit(3)
+    @posts = Post.joins(deck: :user).where(users: {id: @user.id}, decks: {removed: false}, posts: {removed: false})
   end
   
 end

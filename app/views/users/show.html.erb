@@ -22,13 +22,13 @@
     </div>
     <div class="row">
       <div class="section_header">
-        <h3>My Decks</h3>
+        <h3>My Recent Decks (<a href="/search#?type=deck&username=<%= @user.username %>">All</a>)</h3>
       </div>
     </div>
     <!-- Post Row -->
     <div class="row post_row">
       <!-- Post -->
-      <% @user.decks.each do |deck| %>
+      <% @user.decks.where(removed: false).each do |deck| %>
       <div class="col-sm-4">
         <div class="post"><br>
           <div class="img">
@@ -49,7 +49,7 @@
     </div>
     <div class="row">
       <div class="section_header">
-        <h3>My Posts</h3>
+        <h3>My Recent Posts (<a href="/search#?type=post&username=<%= @user.username %>">All</a>)</h3>
       </div>
     </div>
     <!-- Post Row -->

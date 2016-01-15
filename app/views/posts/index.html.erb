@@ -2,7 +2,7 @@
   <div class="container">
     <% @posts.each do |format, format_posts| %>
       <div class="section_header">
-        <h3>recent <%= format %> results</h3>
+        <h3>recent <%= format %> results (<a href="/search#?type=post&format=<%= Format.find_by(name: format).id %>">all</a>)</h3>
       </div>
           <!-- Post Row -->
       <div class="row post_row">

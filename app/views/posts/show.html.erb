@@ -1,11 +1,11 @@
 <div ng-controller="quickSearchCtrl">
   <div id="blog_post">
     <div class="container">
-      <div class="section_header">
-        <h3><%= @post.deck.name %></h3>
-      </div>
       <div class="row">
-        <div class="col-md-8 ">
+        <div class="col-md-8 silver-background">
+          <div class="section_header center-text">
+            <h3><%= "#{@post.deck.name} - #{@post.deck.archetype.name}" %></h3>
+          </div>
           <img class="post_pic img-responsive center-margin" src=<%= @post.deck.deck_cards.find_by(key_card: true).card.image_url %> >
 
           <div class="post_content col-md-12">
@@ -70,7 +70,7 @@
               <br>
               <div class="row">
                 <div class="col-sm-12">
-                  <%= submit_tag "Add Comment", class: "btn send" %>
+                  <%= submit_tag "Add Comment", class: "btn btn-default send" %>
                 </div>
               </div>
               <% end %>
@@ -80,7 +80,8 @@
         </div>
         <br>
         <!-- SideBar -->
-        <div class="col-md-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
           <datalist id="card_names" ng-if="cardName"><option ng-repeat="card in searchedCards">{{card.name}}</option></datalist>
           <div class="sidebar">
             <div class="box">

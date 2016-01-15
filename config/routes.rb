@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   get '/', to: 'posts#index'
   devise_for :users
-  resources :users, only: [:show] do
-    resources :decks, controller: :user_decks
-    resources :posts, controller: :user_posts
-  end
+  resources :users, only: [:show]
   resources :search, only: [:index]
   resources :posts
   resources :user_types

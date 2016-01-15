@@ -2,24 +2,25 @@
   <div id="contact">
     <div class="container">
       <div class="row">
-        <div class="col-sm-7 silver-background">
+        <div class="col-sm-8 silver-background">
+          <div class="section_header center-text">
+            <h3>Add a New Deck</h3>
+          </div>
           <form>
             <div class="row padding-15" id="deck_form">
               <div class="form-group">
-                <h3>Deck Name: <input ng-model="deckInfo.name" class="form-control"></h3>
+                <h3><label for="deck_name">Deck Name:</label></h3><input id="deck_name" ng-model="deckInfo.name" class="form-control deck-form-control">
               </div>
               <div class="form-group">
-                <h3>Format:
-                  <select ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()" class="form-control">
-                  </select>
-                </h3>
+                <h3><label for="format">Format:</label></h3>
+                <select id="format" ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()" class="form-control deck-form-control">
+                </select>
               </div>
               <div class="form-group">
-                <h3>Archetype:
-                  <select ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" ng-disabled="!chosenFormat" class="form-control"></select>
-                </h3>
+                <h3><label for="archetype">Archetype:</label></h3>
+                <select id="archetype" ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" ng-disabled="!chosenFormat" class="form-control deck-form-control"></select>
               </div>
-              <div class="form-group form-inline center-text">
+              <div class="form-group form-inline">
                 <datalist id="card_names">
                   <option ng-repeat="card in searchedCards">{{card.name}}</option>
                 </datalist>
@@ -43,7 +44,7 @@
                     <td>Total Cards</td>
                   </tr>
                 </table>
-                <div id="deck_cards_buttons">
+                <div id="deck_cards_buttons" class="center-text">
                   <a href="#deck_cards_buttons" class="btn btn-default" ng-click="addDeckCard(1)">Add Another Card</a>
                   <a href="#deck_cards_buttons" class="btn btn-default" ng-click="removeDeckCard(1)">Remove Last Card</a><br>
                   <a href="#deck_cards_buttons" class="btn btn-default" ng-click="addDeckCard(5)">Add 5 Cards</a>
@@ -57,7 +58,7 @@
           </form>
         </div>
         <div class="col-sm-1"></div>
-        <div id="blog_post" class="col-sm-4">
+        <div id="blog_post" class="col-sm-3">
           <div class="sidebar">
             <div class="box">
               <div class="box last">
