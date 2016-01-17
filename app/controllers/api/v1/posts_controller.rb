@@ -14,6 +14,13 @@ class Api::V1::PostsController < ApplicationController
     end
   end
   def update
+    @post = Post.find(params[:id])
+    @post.attributes = {post_text: params[:post_text]}
+    if @post.save
+      render :show
+    else
+      
+    end
   end
   def destroy
   end

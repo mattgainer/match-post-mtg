@@ -3,23 +3,18 @@
 
   angular.module("app").controller("editPostFormCtrl", function($scope, $http, $window) {
     window.$scope = $scope;
-
-    $scope.formInitialize = function(userId) {
+    $scope.formInitialize = function(postId) {
       $http.get("/api/v1/posts/" + postId + ".json").then(function(response) {
         $scope.post = response.data;
-      });
-      $http.get("/api/v1/decks.json").then(function(response){
-        $scope.userDecks = [];
-        $scope.decks = response.data;
-        for (var i=0;i<$scope.decks.length;i++) {
-          if ($scope.decks[i].user_id === userId) {
-            $scope.userDecks.push($scope.decks[i]);
-          }
-        }
-      });
-      $scope.post
-      $http.get("/api/v1/results.json").then(function(response) {
-        $scope.results = response.data;
+        $http.get("/api/v1/decks/" + $scope.post.deck_id + ".json").then(function(response){
+          $scope.post.deck = response.data;
+          $http.get("/api/v1/archetypes/" + $scope.post.archetype_id + ".json").then(function(response) {
+            $scope.post.archetype = response.data;
+            $http.get("/api/v1/results/" + $scope.post.result_id + ".json").then(function(response) {
+              $scope.post.result = response.data;
+            });
+          });
+        });
       });
     }
     $scope.lookUpCard = function(input) {
@@ -47,8 +42,8 @@
       });
     }
     $scope.submitPost = function() {
-      $http.patch("/api/v1/posts.json", $scope.post).then(function(response) {
-        $window.location.href = "/posts/" + response.data.id;
+      $http.patch("/api/v1/posts/" + $scope.post.id + ".json", $scope.post).then(function(response) {
+        $window.location.href = "/posts/" + $scope.post.id;
       });
     }
   });

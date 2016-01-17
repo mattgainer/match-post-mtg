@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :check_post_removed!
   def index
     @posts = Post.posts_by_format
   end
@@ -16,5 +17,7 @@ class PostsController < ApplicationController
   end
   def edit
     @post = Post.find(params[:id])
+  end
+  def update
   end
 end

@@ -9,19 +9,19 @@
           <div class="row padding-15" id="deck_form">
             <div class="form-group">
               <h3>Deck:</h3>  
-              <select ng-model="newPost.deck_id" ng-options="deck.id as deck.name for deck in userDecks track by deck.id" ng-change="selectArchetypes()" class="form-control"></select>
+              <select ng-disabled="true" ng-model="post.deck.name" class="form-control"><option>{{post.deck.name}}</option></select>
             </div>
             <div class="form-group">
               <h3>Opposing Archetype:</h3>  
-              <select ng-model="newPost.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" class="form-control" ng-disabled="!newPost.deck_id"></select>
+              <select ng-model="post.archetype.name" class="form-control" ng-disabled="true"><option>{{post.archetype.name}}</option></select>
             </div>
             <div class="form-group">
             <h3>Result:</h3> 
-              <select ng-model="newPost.result_id" ng-options="result.id as result.text_result for result in results track by result.id" class="form-control"></select>
+              <select ng-model="post.result.text_result" class="form-control" ng-disabled="true"><option>{{post.result.text_result}}</option></select>
             </div>
             <div class="form-group">
               <h3>Post Text:</h3>   
-              <textarea class="form-control no-resize" rows=7 ng-model="newPost.post_text"></textarea>
+              <textarea class="form-control no-resize" rows=7 ng-model="post.post_text"></textarea>
             </div>
             <div class="form-group">
               <button class="btn btn-default" ng-click="submitPost()">Submit Post</button>
