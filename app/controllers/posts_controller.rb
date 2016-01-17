@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :check_post_removed!
+  before_action :check_post_removed!, only: [:show, :edit]
   def index
     @posts = Post.posts_by_format
   end

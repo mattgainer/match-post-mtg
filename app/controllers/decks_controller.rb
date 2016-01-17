@@ -29,8 +29,6 @@ class DecksController < ApplicationController
   end
 
   def update
-    @deck = Deck.new(deck_params)
-    if @deck.save
 
   end
 
