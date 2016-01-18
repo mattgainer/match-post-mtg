@@ -47,8 +47,8 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: sideboard-out-the-combo_production
-  username: sideboard-out-the-combo
-  password: <%= ENV['SIDEBOARD-OUT-THE-COMBO_DATABASE_PASSWORD'] %>
+  production:
+    database: match-post-mtg-production
+    adapter: postgresql
+         encoding: unicode
+         pool: 5
