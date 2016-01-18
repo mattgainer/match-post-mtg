@@ -25,11 +25,11 @@ class Card
   end
 
   def self.find_by_name(part_name)
-    hash = Unirest.get("http://api.deckbrew.com/mtg/cards/typeahead?q=#{part_name}").body.first
+    hash = Unirest.get("https://api.deckbrew.com/mtg/cards/typeahead?q=#{part_name}").body.first
     Card.unirest_new(hash)
   end
   def self.find(multi_id)
-    hash = Unirest.get("http://api.deckbrew.com/mtg/cards?m=#{multi_id}").body.first
+    hash = Unirest.get("https://api.deckbrew.com/mtg/cards?m=#{multi_id}").body.first
     Card.unirest_new(hash)
   end
   def persisted?
