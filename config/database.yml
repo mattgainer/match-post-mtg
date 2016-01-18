@@ -47,8 +47,8 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-  production:
-    database: match-post-mtg-production
-    adapter: postgresql
-         encoding: unicode
-         pool: 5
+production:
+ database: match-post-mtg-production
+ adapter: postgresql
+ encoding: unicode
+ pool: 5
