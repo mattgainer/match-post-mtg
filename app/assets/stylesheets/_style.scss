@@ -1,7 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 body {
-  background-image: url("shattered.png");
+  background-image: image-url("<%= asset_path "shattered.png" %>");
   padding-top:75px;
 }
 .center-text {
@@ -89,7 +89,7 @@ img.tooltip-image {
   height: 150px;
 }
 .silver-background {
-  background-image: url("theme/backgrounds/silver.jpg");
+  background-image: image-url("<%= asset_path("theme/backgrounds/silver.jpg") %>");
   background-size: cover;
   border-radius: 5px;
   box-shadow: 0 1px 3px 1px #cfcfcf;
