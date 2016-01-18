@@ -50,7 +50,7 @@
       }
     }
     $scope.lookUpCard = function(card, index) {
-      $http.get("http://api.deckbrew.com/mtg/cards?m=" + card.card_id).then(function(response) {
+      $http.get("https://api.deckbrew.com/mtg/cards?m=" + card.card_id).then(function(response) {
         $scope.oldDeckCards[index].name = response.data[0].name;
       });
     }
@@ -94,7 +94,7 @@
     }
     $scope.lookUpCardByName = function(input) {
       input.replace(/aet/g,"Æt").replace(/Aet/g,"Æt");
-      $http.get("http://api.deckbrew.com/mtg/cards/typeahead?q=" + input).then(function(response){
+      $http.get("https://api.deckbrew.com/mtg/cards/typeahead?q=" + input).then(function(response){
         var cardEditions = response.data[0].editions;
         for (var i=cardEditions.length - 1;i>=0;i--) {
           if (parseInt(cardEditions[i].multiverse_id)) {
