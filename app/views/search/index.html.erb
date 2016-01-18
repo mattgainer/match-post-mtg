@@ -7,15 +7,15 @@
           <h3>Search</h3>
         </div>
         <form class="center-text">
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-3 left-indent">
           <h4>Search Decks or Posts:</h4>
             <label>
-              <input ng-model="searchType" type="radio" name="deck_or_post" value="post"> Post
+              <input ng-model="searchType" type="radio" name="deck_or_post" value="post" class="left-indent"> Match Result Post
             </label><br>
             <label>
-              <input ng-model="searchType" type="radio" name="deck_or_post" value="deck"> Deck
+              <input ng-model="searchType" type="radio" name="deck_or_post" value="deck" class="left-indent"> Deck
             </label>
-          <h5>Records Per Page:
+          <h5 class="center-text">Records Per Page:
             <select ng-model="numberOfRecords" ng-options="paginator for paginator in paginationOptions" class="form-control record-num-select"></select>
           </h5>
           </div>
@@ -36,6 +36,8 @@
         </form>
       </div>
       <div class="col-md-12">
+        <h5 class="center-text">Double Click a Record to Go to Deck or Result</h5>
+        <h5 class="center-text">Double Click a Header to Sort</h5>
         <table id="results_table" class="table table-bordered table-hover center-text no-select">
           <thead>
             <tr ng-if="typeOfSearch('post', 'static')">

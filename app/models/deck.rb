@@ -3,6 +3,7 @@ class Deck < ActiveRecord::Base
   belongs_to :archetype
   has_many :posts
   has_many :deck_cards
+  has_many :deck_comments
   
   def dates
     {create: created_at.strftime("%D"),update: updated_at.strftime("%D")}

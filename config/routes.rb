@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       resources :archetypes
       resources :formats
       resources :results
+      resources :deck_comments
+      resources :post_comments
     end
   end
 

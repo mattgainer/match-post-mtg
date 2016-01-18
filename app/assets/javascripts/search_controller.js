@@ -165,7 +165,11 @@
           }
         }
       }
-      $scope.page = $scope.startingIndex/$scope.search.numberOfRecords + 1
+      if ($scope.startingIndex/$scope.search.numberOfRecords) {
+        $scope.page = $scope.startingIndex/$scope.search.numberOfRecords + 1
+      } else {
+        $scope.page = 1;
+      }
     }
     $scope.toggleOrder = function(attribute) {
       if (attribute === $scope.orderAttribute) {
@@ -204,9 +208,8 @@
       $scope.showRecords()
     }
     $scope.showNext = function() {
-
-      if (($scope.search.typeName === 'post' && $scope.startingIndex + $scope.search.numberOfRecords - 1 >= $scope.posts.length) ||
-        ($scope.search.typeName === 'deck' && $scope.startingIndex + $scope.search.numberOfRecords - 1 >= $scope.decks.length)) {
+      if ($scope.posts && (($scope.search.typeName === 'post' && $scope.startingIndex + $scope.search.numberOfRecords - 1 >= $scope.posts.length) ||
+        ($scope.search.typeName === 'deck' && $scope.startingIndex + $scope.search.numberOfRecords - 1 >= $scope.decks.length))) {
         return false
       }
       return true

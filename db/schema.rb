@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112025056) do
+ActiveRecord::Schema.define(version: 20160117232341) do
 
   create_table "archetypes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20160112025056) do
     t.boolean  "sideboard",            default: false
   end
 
+  create_table "deck_comments", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.text     "comment_text", limit: 65535
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "deck_id",      limit: 4
+    t.boolean  "removed",                    default: false
+  end
+
   create_table "decks", force: :cascade do |t|
     t.string   "name",         limit: 255
     t.integer  "user_id",      limit: 4
@@ -45,6 +54,15 @@ ActiveRecord::Schema.define(version: 20160112025056) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "post_comments", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.text     "comment_text", limit: 65535
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "post_id",      limit: 4
+    t.boolean  "removed",                    default: false
   end
 
   create_table "posts", force: :cascade do |t|
