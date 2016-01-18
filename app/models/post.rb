@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
     posts = {}
     user_id = [user_id] if user_id.class != Array
     Format.all.each do |format|
-      posts["#{format.name.downcase}"] = Post.joins(deck: {archetype: :format}).where(formats: {name: format.name}, decks: {user_id: user_id, removed: false}, posts: {removed: false})
+      posts["#{format.name}"] = Post.joins(deck: {archetype: :format}).where(formats: {name: format.name}, decks: {user_id: user_id, removed: false}, posts: {removed: false})
     end
     return posts
   end

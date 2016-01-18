@@ -32,15 +32,15 @@
       <div class="col-sm-4">
         <div class="post"><br>
           <div class="img">
-            <a href="users/<%= @user.id %>/decks/<%= deck.id %>">
+            <a href="/decks/<%= deck.id %>">
               <img src=<%= deck.deck_cards.find_by(key_card: true).card.image_url %> alt=<%= deck.name %> class="img-responsive center-margin" />
             </a>
           </div>
           <div class="text">
-            <h5><a href="users/<%= @user.id %>/decks/<%= deck.id %>"><%= deck.name %></a></h5>
+            <h5><a href="/decks/<%= deck.id %>"><%= deck.name %></a></h5>
             <span class="date"><%= deck.dates[:update] %></span>
           </div>
-          <a class="plus_wrapper" href="users/<%= @user.id %>/decks/<%= deck.id %>">
+          <a class="plus_wrapper" href="/decks/<%= deck.id %>">
             <span>&#43;</span>
           </a>
         </div>
@@ -59,17 +59,17 @@
       <div class="col-sm-4">
         <div class="post"><br>
           <div class="img">
-            <a href="users/<%= @user.id %>/posts/<%= post.id %>">
+            <a href="/posts/<%= post.id %>">
               <img src=<%= post.deck.deck_cards.find_by(key_card: true).card.image_url %> alt=<%= post.deck.name %> class="img-responsive center-margin" />
             </a>
           </div>
           <div class="text">
-            <h5><a href="users/<%= @user.id %>/posts/<%= post.id %>"><%= post.deck.name %></a></h5>
+            <h5><a href="/posts/<%= post.id %>"><%= post.deck.name %></a></h5>
             <span class="date"><%= post.dates[:update] %></span>
             <p>
                   <%= "#{post.post_text[0..120]}#{"..." if post.post_text.length > 121}" %></p>
           </div>
-          <a class="plus_wrapper" href="users/<%= @user.id %>/posts/<%= post.id %>">
+          <a class="plus_wrapper" href="/posts/<%= post.id %>">
             <span>&#43;</span>
           </a>
         </div>
