@@ -4,7 +4,6 @@
   angular.module("app").controller("showDeckCtrl", function($scope, $http, $window) {
     window.$scope = $scope;
     $scope.initialize = function(deckId, userId) {
-      console.log(deckId);
       $http.get("/api/v1/deck_comments.json?deck_id=" + deckId).then(function(response) {
         $scope.comments = response.data;
         $scope.newComment = {deck_id: deckId, user_id: userId}

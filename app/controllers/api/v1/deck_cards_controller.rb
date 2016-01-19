@@ -21,7 +21,7 @@ class Api::V1::DeckCardsController < ApplicationController
   end
   def update
     @deck_card = DeckCard.find(params[:id])
-    @deck_card.attributes = {card_id: params[:card_id], quantity: params[:quantity]}
+    @deck_card.attributes = {card_id: params[:card_id], quantity: params[:quantity], removed: params[:removed]}
     if @deck_card.key_card && !params[:key_card]
       @deck_card.attributes = {key_card: false}
     elsif params[:key_card]

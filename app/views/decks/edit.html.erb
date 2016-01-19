@@ -33,11 +33,11 @@
                     <th>Sideboard?</th>
                   </tr>
                   <tr ng-repeat="deckCard in oldDeckCards">
-                    <td><input type="radio" ng-model="deckCard.key_card" name="key_card" ng-value="true" ng-click="removePrevious($index,'old')" required></td>
-                    <td><input type="number" ng-model="deckCard.quantity" class="form-control card-quantity center-text" min="1" ng-change="addToTotalQuantity()" required></td>
+                    <td><input type="radio" ng-model="deckCard.key_card" name="key_card" ng-value="true" ng-click="removePrevious($index,'old')" ng-disabled="deckCard.removed" required></td>
+                    <td><input type="number" ng-model="deckCard.quantity" class="form-control card-quantity center-text" min="1" ng-change="addToTotalQuantity()" ng-disabled="deckCard.removed" required></td>
                     <td><input type="text" list="card_names" ng-model="deckCard.name" ng-disabled="true" class="form-control center-text" required></td>
-                    <td><div class="checkbox"><input type="checkbox" ng-value="true" ng-model="deckCard.sideboard" class="center-text"></div></td>
-                    <td><a id="card{{$index}}" href="#card{{$index}}" ng-click="removeExistingCard($index)" class="btn btn-default">Remove</a></td>
+                    <td><div class="checkbox"><input type="checkbox" ng-value="true" ng-model="deckCard.sideboard" class="center-text" ng-disabled="deckCard.removed"></div></td>
+                    <td><a id="card{{$index}}" href="#card{{$index}}" ng-click="toggleRemoved($index)" class="btn btn-default" ng-if="!deckCard.removed">Remove</a><a id="card{{$index}}" href="#card{{$index}}" ng-click="toggleRemoved($index)" class="btn btn-default" ng-if="deckCard.removed">Undo</a></td>
                   </tr>
                   <tr ng-repeat="deckCard in newDeckCards">
                     <td><input type="radio" ng-model="deckCard.key_card" name="key_card" ng-value="true" ng-click="removePrevious($index ,'new')" required></td>
@@ -53,9 +53,9 @@
                 </table>
                 <div id="deck_cards_buttons" class="center-text">
                   <a href="#deck_cards_buttons" class="btn btn-default" ng-click="addDeckCard(1)">Add Another Card</a>
-                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="removeDeckCard(1)">Remove Last Card</a><br>
+                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="removeDeckCard(1)" ng-disabled="newDeckCards.length<1">Remove Last New Card</a><br>
                   <a href="#deck_cards_buttons" class="btn btn-default" ng-click="addDeckCard(5)">Add 5 Cards</a>
-                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="removeDeckCard(5)">Remove 5 Cards</a>
+                  <a href="#deck_cards_buttons" class="btn btn-default" ng-click="removeDeckCard(5)" ng-disabled="newDeckCards.length<5">Remove 5 New Cards</a>
                 </div>
               </div>
               <div class="form-group center-text">

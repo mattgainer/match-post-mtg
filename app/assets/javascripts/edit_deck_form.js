@@ -58,23 +58,21 @@
       $scope.deck.archetype_id = $scope.chosenArchetype.id
     }
     $scope.submitDeck = function() {
-      if ($scope.foundCardName) {
+      if ($scope.foundCardName || $scope.newDeckCards.length === 0) {
         $http.patch("/api/v1/decks/" + $scope.deck.id + ".json", $scope.deck).then(function(response) {
           for (var i=0; i<$scope.oldDeckCards.length; i++) {
-            for (var j=0; j<$scope.newDeckCards.length; j++) {
-              $scope.newDeckCards[j].deck_id = $scope.deck.id
-              $scope.lookUpCardByName($scope.newDeckCards[j].name)
-              $scope.newDeckCards[j].card_id = $scope.foundCardId;
-            }
             $http.patch("/api/v1/deck_cards/" + $scope.oldDeckCards[i].id + ".json", $scope.oldDeckCards[i]).then(function(response) {
-              if (!$scope.addedNewCards) {
-                for (var j=0; j<$scope.newDeckCards.length; j++) {
-                  $http.post("/api/v1/deck_cards.json", $scope.newDeckCards[j]).then(function(response){
-                  });
-                }
+              if (!$scope.redirect) {
                 $window.location.href = "/decks/" + $scope.deck.id;
-                $scope.addedNewCards = true;
+                $scope.redirect = true;
               }
+            });
+          }
+          for (var i=0; i<$scope.newDeckCards.length; i++) {
+            $scope.newDeckCards[i].deck_id = $scope.deck.id
+            $scope.lookUpCardByName($scope.newDeckCards[i].name)
+            $scope.newDeckCards[i].card_id = $scope.foundCardId;
+            $http.post("/api/v1/deck_cards.json", $scope.newDeckCards[i]).then(function(response){
             });
           }
         });
@@ -107,18 +105,19 @@
           }
           $scope.foundCardName = response.data[0].name;
           $scope.searchedCards = response.data;
+          $scope.foundCardId = cardEditions[i].multiverse_id;
         } else {
           $scope.foundCardName = "";
           $scope.searchedCards = [];
-          $scope.foundCArdImageURL = "";
+          $scope.foundCardImageURL = "";
         }
       });
     }
-    $scope.removeExistingCard = function (index) {
-      $http.delete("/api/v1/deck_cards/" + $scope.oldDeckCards[index].id + ".json").then(function() {
-        $scope.oldDeckCards.splice(index,1);
-        $scope.addToTotalQuantity();
-      });
+    $scope.toggleRemoved = function (index) {
+      $scope.oldDeckCards[index].removed = !$scope.oldDeckCards[index].removed;
+      if ($scope.oldDeckCards[index].key_card) {
+        $scope.oldDeckCards[index].key_card = undefined;
+      }
     }
     $scope.removePrevious = function(index, type) {
       if (type==="old") {
@@ -127,14 +126,14 @@
             $scope.oldDeckCards[i].key_card = false;
           }
         }
-        for (var i=0; i<scope.newDeckCards.length;i++) {
+        for (var i=0; i<$scope.newDeckCards.length;i++) {
           $scope.newDeckCards[i].key_card = false;
         }
       } else if (type==="new") {
         for (var i=0; i<$scope.oldDeckCards.length; i++) {
             $scope.oldDeckCards[i].key_card = false;
         }
-        for (var i=0; i<scope.newDeckCards.length;i++) {
+        for (var i=0; i<$scope.newDeckCards.length;i++) {
           if (i !== index) {
             $scope.newDeckCards[i].key_card = false;
           }
@@ -150,13 +149,6 @@
           $scope.newDeckCards[index].name = undefined;
         }
       });
-    }
-    $scope.removePrevious = function(index) {
-      for (var i=0; i<$scope.newDeckCards.length; i++) {
-        if (i !== index) {
-          $scope.newDeckCards[i].key_card = false;
-        }
-      }
     }
   });
 }());
