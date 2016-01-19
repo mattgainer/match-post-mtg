@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :check_post_removed!, only: [:show, :edit]
+  before_action :must_sign_up!
   def index
     @posts = Post.posts_by_format
   end

@@ -29,4 +29,7 @@ class ApplicationController < ActionController::Base
   def check_deck_removed!
     redirect_to "/" unless !Deck.find(params[:id]).removed
   end
+  def must_sign_up!
+    redirect_to "/users/sign_up" unless current_user
+  end
 end

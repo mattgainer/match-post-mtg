@@ -1,0 +1,71 @@
+<div id="showcase">
+  <div class="container silver-background center-text padding-bottom-50">
+    <div class="section_header">
+      <h3>Welcome to Match Post MtG</h3>
+    </div>            
+    <div class="row feature_wrapper">
+      <!-- Features Row -->
+      <div class="features_op1_row">
+        <!-- Feature -->
+        <div class="col-sm-4 feature first">
+          <div class="img_box">
+            <a href="services.html">
+              <span class="circle"> 
+                <span class="plus">&#43;</span>
+              </span>
+            </a>
+          </div>
+          <div class="text">
+            <h6><a href="/decks">List Your Deck</a></h6>
+            <p>Build a custom decklist and tag it with your deck archetype and favorite card.</p>
+          </div>
+        </div>
+        <!-- Feature -->
+        <div class="col-sm-4 feature">
+          <div class="img_box">
+            <a href="services.html">
+              <span class="circle"> 
+                <span class="plus">&#43;</span>
+              </span>
+            </a>
+          </div>
+          <div class="text">
+            <h6><a href="/posts">Post a Match Result</a></h6>
+            <p>Win your Local FNM? Top 8 a GP? Post your match results, keep a record of your favorite plays and games.</p>
+          </div>
+        </div>
+        <!-- Feature -->
+        <div class="col-sm-4 feature last">
+          <div class="img_box">
+            <a href="services.html">
+              <span class="circle"> 
+                <span class="plus">&#43;</span>
+              </span>
+            </a>
+          </div>
+          <div class="text">
+            <h6><a href="/search">Search the Database</a></h6>
+            <p>Want to tune up your sideboard against a specific matchup? Time to learn a new deck before the Pro Tour? Search the database of decks and posts for results to learn from.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Pricing Option -->
+<% if !current_user %>
+<div id="in_pricing">
+  <div class="container">
+    <div class="start">
+      <p>Create an Account to Get Started</p>
+      <a href="/users/sign_up">Get Started Today!</a>
+    </div>
+  </div><br>
+  <div class="container">
+    <div class="start">
+      <p>Already Have An Account? Sign In!!</p>
+      <a href="/users/sign_in">Sign In</a>
+    </div>
+  </div>
+</div>
+<% end %>

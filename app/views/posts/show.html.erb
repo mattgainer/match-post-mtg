@@ -13,9 +13,11 @@
           <h3><%= "By #{@post.deck.user.username}" %></h3>
           <span class="date">Updated <%= @post.dates[:create] %></span>
           <span class="date">Created <%= @post.dates[:create] %></span>
+          <% if current_user %>
           <% if current_user.id == @post.deck.user.id %>
           <%= link_to "Delete Post", "/posts/#{@post.id}", method: :delete, class: "btn btn-default" %>
           <%= link_to "Edit Post", "/posts/#{@post.id}/edit", class: "btn btn-default" %>
+          <% end %>
           <% end %>
           <p><%= simple_format(@post.post_text) %></p>
         </div>

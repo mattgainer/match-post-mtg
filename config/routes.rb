@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/', to: 'posts#index'
+  get '/', to: 'home#index'
   devise_for :users
   resources :users, only: [:show]
   resources :search, only: [:index]

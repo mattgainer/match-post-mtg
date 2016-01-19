@@ -1,12 +1,13 @@
 class DecksController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
   before_action :authenticate_their_deck!, only: [:update, :create]
   before_action :check_deck_removed!, only: [:show, :edit]
+  before_action :must_sign_up!, 
   def index
     @decks = Deck.decks_by_format
   end
 
   def show
+
     @deck = Deck.find(params[:id])
     @comments = []
   end

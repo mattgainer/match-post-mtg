@@ -11,9 +11,11 @@
           <h3><%= "By #{@deck.user.username}" %></h3>
           <span class="date">Updated <%= @deck.dates[:update] %></span>
           <span class="date">Created <%= @deck.dates[:create] %></span>
+          <% if current_user %>
           <% if current_user.id == @deck.user.id %>
           <%= link_to "Delete Deck", "/decks/#{@deck.id}", method: :delete, class: "btn btn-default" %>
           <%= link_to "Edit Deck", "/decks/#{@deck.id}/edit", class: "btn btn-default" %>
+          <% end %>
           <% end %>
         </div>
         <div id="decklist" class="post_content col-md-12">
