@@ -18,6 +18,8 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
   end
-  def update
+  def destroy
+    @post = Post.find(:id).update(removed: true)
+    redirect_to "/"
   end
 end

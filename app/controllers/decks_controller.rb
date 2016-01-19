@@ -1,6 +1,7 @@
 class DecksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :authenticate_their_deck!, only: [:update, :create]
+  before_action :check_deck_removed!, only: [:show, :edit]
   def index
     @decks = Deck.decks_by_format
   end
@@ -34,6 +35,7 @@ class DecksController < ApplicationController
 
   def destroy
     Deck.find(params[:id]).update(removed: true)
+    redirect_to "/decks"
   end
 
   private

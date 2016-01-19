@@ -26,4 +26,7 @@ class ApplicationController < ActionController::Base
   def check_post_removed!
     redirect_to "/" unless !Post.find(params[:id]).removed
   end
+  def check_deck_removed!
+    redirect_to "/" unless !Deck.find(params[:id]).removed
+  end
 end

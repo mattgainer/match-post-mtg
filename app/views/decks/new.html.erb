@@ -6,19 +6,19 @@
           <div class="section_header center-text">
             <h3>Add a New Deck</h3>
           </div>
-          <form>
+          <form name="newDeck" novalidate>
             <div class="row padding-15" id="deck_form">
-              <div class="form-group">
-                <h3><label for="deck_name">Deck Name:</label></h3><input id="deck_name" ng-model="deckInfo.name" class="form-control deck-form-control">
+              <div class="form-group" ng-class="{ 'has-error' : newDeck.deck_name.$invalid && newDeck.deck_name.$dirty}">
+                <h3><label for="deck_name">Deck Name:</label></h3><input name="deck_name" id="deck_name" ng-model="deckInfo.name" class="form-control deck-form-control" required>
               </div>
-              <div class="form-group">
+              <div class="form-group" required ng-class="{ 'has-error' : newDeck.format.$invalid && newDeck.format.$dirty}">
                 <h3><label for="format">Format:</label></h3>
-                <select id="format" ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()" class="form-control deck-form-control">
+                <select name="format" id="format" ng-model="chosenFormat" ng-options="format.id as format.name for format in formats track by format.id" ng-change="selectArchetypes()" class="form-control deck-form-control" required>
                 </select>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-class="{ 'has-error' : newDeck.archetype.$invalid && newDeck.archetype.$dirty}">
                 <h3><label for="archetype">Archetype:</label></h3>
-                <select id="archetype" ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" ng-disabled="!chosenFormat" class="form-control deck-form-control"></select>
+                <select name="archetype" id="archetype" ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" ng-disabled="!chosenFormat" class="form-control deck-form-control" required></select>
               </div>
               <div class="form-group form-inline">
                 <datalist id="card_names">
@@ -32,10 +32,10 @@
                     <th>Card Name</th>
                     <th>Sideboard?</th>
                   </tr>
-                  <tr ng-repeat="deckCard in newDeckCards">
-                    <td><input type="radio" ng-model="deckCard.key_card" name="key_card" ng-value="true" ng-click="removePrevious($index)"></td>
-                    <td><input type="number" ng-model="deckCard.quantity" class="form-control card-quantity center-text" min="1" ng-change="addToTotalQuantity()"></td>
-                    <td><input type="text" list="card_names" ng-model="deckCard.name" ng-change="lookUpCard(deckCard.name)" class="form-control center-text"></td>
+                  <tr ng-repeat="deckCard in newDeckCards" ng-class="{ 'has-error' : newDeck.cardName.$invalid && newDeck.cardName.$dirty}">
+                    <td><input type="radio" ng-model="deckCard.key_card" name="key_card" ng-value="true" ng-click="removePrevious($index)" required></td>
+                    <td><input type="number" ng-model="deckCard.quantity" class="form-control card-quantity center-text" min="1" ng-change="addToTotalQuantity()" required></td>
+                    <td><input type="text" name="cardName" list="card_names" ng-model="deckCard.name" ng-change="lookUpCard(deckCard.name)" class="form-control center-text" ng-blur="setCardName($index)" required></td>
                     <td><div class="checkbox"><input type="checkbox" ng-value="true" ng-model="deckCard.sideboard" class="center-text"></div></td>
                   </tr>
                   <tr>
@@ -52,7 +52,7 @@
                 </div>
               </div>
               <div class="form-group center-text">
-                <button class="btn btn-default" ng-click="submitDeck(<%= current_user.id %>)">Submit Deck</button>
+                <button type="submit" class="btn btn-default" ng-click="submitDeck(<%= current_user.id %>)" ng-disabled="newDeck.$invalid">Submit Deck</button>
               </div>
             </div>
           </form>

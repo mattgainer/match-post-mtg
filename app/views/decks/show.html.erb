@@ -43,7 +43,7 @@
             <% end %>
           </div>
         </div>
-        <div class="comments col-md-12" ng-controller="showPostCtrl" ng-init="initialize(<%= @post.id %>, <%= current_user.id if current_user %>)">
+        <div class="comments col-md-12" ng-controller="showDeckCtrl" ng-init="initialize(<%= @deck.id %>, <%= current_user.id if current_user %>)">
           <h3>Comments:</h3>
           <div class="comment">
             <div class="row">
