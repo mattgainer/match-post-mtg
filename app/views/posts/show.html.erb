@@ -11,6 +11,7 @@
         <div class="post_content col-md-12">
           <h2><%= "Vs. #{@post.archetype.name}" %></h2>
           <h3><%= "By #{@post.deck.user.username}" %></h3>
+          <h3>Result: <%= @post.result.text_result %></h3>
           <span class="date">Updated <%= @post.dates[:create] %></span>
           <span class="date">Created <%= @post.dates[:create] %></span>
           <% if current_user %>
