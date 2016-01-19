@@ -21,9 +21,6 @@
                 <select name="archetype" id="archetype" ng-model="deckInfo.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" ng-disabled="!chosenFormat" class="form-control deck-form-control" required></select>
               </div>
               <div class="form-group form-inline">
-                <datalist id="card_names">
-                  <option ng-repeat="card in searchedCards">{{card.name}}</option>
-                </datalist>
                 <h3>Cards:</h3>
                 <table class="table center-text table-condensed">
                   <tr>
@@ -35,7 +32,7 @@
                   <tr ng-repeat="deckCard in newDeckCards" ng-class="{ 'has-error' : newDeck.cardName.$invalid && newDeck.cardName.$dirty}">
                     <td><input type="radio" ng-model="deckCard.key_card" name="key_card" ng-value="true" ng-click="removePrevious($index)" required></td>
                     <td><input type="number" ng-model="deckCard.quantity" class="form-control card-quantity center-text" min="1" ng-change="addToTotalQuantity()" required></td>
-                    <td><input type="text" name="cardName" list="card_names" ng-model="deckCard.name" ng-change="lookUpCard(deckCard.name)" class="form-control center-text" ng-blur="setCardName($index)" required></td>
+                    <td><input type="text" name="cardName" ng-model="deckCard.name" ng-change="lookUpCard(deckCard.name)" class="form-control center-text" ng-blur="setCardName($index)" required></td>
                     <td><div class="checkbox"><input type="checkbox" ng-value="true" ng-model="deckCard.sideboard" class="center-text"></div></td>
                   </tr>
                   <tr>

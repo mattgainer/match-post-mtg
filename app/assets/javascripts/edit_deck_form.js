@@ -41,7 +41,7 @@
     }
     $scope.addDeckCard = function(number) {
       for (var i=0;i<number;i++) {
-        $scope.newDeckCards.push({key_card:false});
+        $scope.newDeckCards.push({key_card:false, deck_id:$scope.deck.id});
       }
     }
     $scope.removeDeckCard = function(number) {
@@ -60,23 +60,29 @@
     $scope.submitDeck = function() {
       if ($scope.foundCardName || $scope.newDeckCards.length === 0) {
         $http.patch("/api/v1/decks/" + $scope.deck.id + ".json", $scope.deck).then(function(response) {
-          for (var i=0; i<$scope.oldDeckCards.length; i++) {
-            $http.patch("/api/v1/deck_cards/" + $scope.oldDeckCards[i].id + ".json", $scope.oldDeckCards[i]).then(function(response) {
-              if (!$scope.redirect) {
-                $window.location.href = "/decks/" + $scope.deck.id;
-                $scope.redirect = true;
-              }
-            });
-          }
-          for (var i=0; i<$scope.newDeckCards.length; i++) {
-            $scope.newDeckCards[i].deck_id = $scope.deck.id
-            $scope.lookUpCardByName($scope.newDeckCards[i].name)
-            $scope.newDeckCards[i].card_id = $scope.foundCardId;
-            $http.post("/api/v1/deck_cards.json", $scope.newDeckCards[i]).then(function(response){
-            });
-          }
+          $scope.editOldCards(0);
         });
       }
+    }
+    $scope.editOldCards = function(index) {
+      $http.patch("/api/v1/deck_cards/" + $scope.oldDeckCards[index].id + ".json", $scope.oldDeckCards[index]).then(function(response) {
+        if (index < $scope.oldDeckCards.length - 1) {
+          $scope.editOldCards(index + 1);
+        } else if ($scope.newDeckCards.length) {
+          $scope.addNewCards(0);
+        } else {
+          $window.location.href = "/decks/" + $scope.deck.id;
+        }
+      });
+    }
+    $scope.addNewCards = function(index) {
+      $http.post("/api/v1/deck_cards.json", $scope.newDeckCards[index]).then(function(response){
+        if (index < $scope.newDeckCards.length - 1) {
+          $scope.addNewCards(index + 1);
+        } else {
+          $window.location.href = "/decks/" + $scope.deck.id
+        }
+      });
     }
     $scope.addToTotalQuantity = function() {
       var total = 0;
@@ -144,6 +150,13 @@
       $http.get("https://api.deckbrew.com/mtg/cards/typeahead?q=" + $scope.newDeckCards[index].name).then(function(response){
         console.log()
         if (response.data[0]) {
+          var cardEditions = response.data[0].editions;
+          for (var i=cardEditions.length - 1;i>=0;i--) {
+            if (parseInt(cardEditions[i].multiverse_id)) {
+              $scope.newDeckCards[index].card_id = cardEditions[i].multiverse_id
+              break;
+            }
+          }
           $scope.newDeckCards[index].name = response.data[0].name
         } else {
           $scope.newDeckCards[index].name = undefined;

@@ -39,7 +39,7 @@
     }
     $scope.addDeckCard = function(number) {
       for (var i=0;i<number;i++) {
-        $scope.newDeckCards.push({});
+        $scope.newDeckCards.push({key_card: false});
       }
     }
     $scope.removeDeckCard = function(number) {
@@ -58,9 +58,7 @@
     }
     $scope.postCard = function(newCard, index) {
       $http.post("/api/v1/deck_cards.json", newCard).then(function(response) {
-        if (index === $scope.newDeckCards.length - 1) {
-          $window.location.href = "/decks/" + newCard.deck_id;
-        }
+        $scope.submitCards(response.data.deck_id, index + 1)
       });
     }
     $scope.getCardId = function(index) {
@@ -76,17 +74,19 @@
       $scope.postCard($scope.newDeckCards[index], index);
       });
     }
-    $scope.submitCards = function(deckId) {
-      for (var i=0;i<$scope.newDeckCards.length;i++) {
-        $scope.newDeckCards[i].deck_id = deckId;
-        $scope.getCardId(i);
+    $scope.submitCards = function(deckId, index) {
+      if (index < $scope.newDeckCards.length) {
+        $scope.newDeckCards[index].deck_id = deckId;
+        $scope.getCardId(index);
+      } else {
+        $window.location.href = "/decks/" + deckId;
       }
     }
     $scope.submitDeck = function(userId) {
       if ($scope.foundCardName) {
         $scope.deckInfo.user_id = userId;
         $http.post("/api/v1/decks.json", $scope.deckInfo).then(function(deck) {
-          $scope.submitCards(deck.data.id);
+          $scope.submitCards(deck.data.id, 0);
         });
       }
     }
