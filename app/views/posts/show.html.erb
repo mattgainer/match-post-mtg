@@ -33,13 +33,13 @@
                   <img src="<%= deck_card.card.image_url %>" class="card-image tooltip-image">
                 </span>
               </a>
-            </p>
+            <%= " - Key Card" if deck_card.key_card %></p>
             <% end %>
           </div>
           <div class="col-md-6">
             <h4>Sideboard:</h4>
             <% @post.deck.deck_cards.where(removed: false, sideboard: true).each do |deck_card| %>
-            <p ><%= deck_card.quantity %>
+            <p class="lineheight-5 margin-bottom-0"><%= deck_card.quantity %>
               <a href="#decklist" class="tooltip"><%= deck_card.card.name %>
                 <span>
                   <img src="<%= deck_card.card.image_url %>" class="card-image tooltip-image">
@@ -60,11 +60,13 @@
                   <div class="date">Updated {{comment.dates.update}}</div>
                   <div class="response">
                     <p ng-if="!comment.editing" ng-bind-html="comment.comment_text | newline"></p>
-                    <textarea ng-if="comment.editing" rows=3 ng-model="comment.comment_text" class="form-control no-resize"></textarea>
+                    <form name="commentEdit" ng-if="comment.editing">
+                      <textarea rows=3 ng-model="comment.comment_text" class="form-control no-resize" required></textarea>
+                      <div><button ng-disabled="commentEdit.$invalid" ng-click="editComment(comment.id)" class="btn btn-default btn-sm">Submit Comment</button></div>
+                      <div><button ng-click="toggleEditing(comment.id)" class="btn btn-default btn-sm">Stop Editing Comment</button></div>
+                    </form>
                   </div>
                   <div><button ng-click="toggleEditing(comment.id)" ng-if="<%= current_user.id %>=== comment.user.id && !comment.editing" class="btn btn-default btn-sm">Edit Comment</button></div>
-                  <div><button ng-click="editComment(comment.id)" class="btn btn-default btn-sm" ng-if="comment.editing">Submit Comment</button></div>
-                  <div><button ng-click="toggleEditing(comment.id)" class="btn btn-default btn-sm" ng-if="comment.editing">Stop Editing Comment</button></div>
                 </div>
               </div>
             </div>
@@ -106,7 +108,7 @@
                   <h4 class="left-indent">Card Name:</h4>
                   <p><input list="card_names" ng-model="cardName" ng-keyup="lookUpCard(cardName)" class="form-control" autocomplete="on"></p>
                   <h3 ng-if="cardName" class="center-text">{{foundCardName}}</h3>
-                  <button ng-if="cardName" clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default">Copy Card Name</button>
+                  <button ng-if="cardName" clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy Card Name to Clipboard</button>
                 </div>
               </div>
             </div>

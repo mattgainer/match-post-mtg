@@ -5,15 +5,15 @@
         <div class="col-md-2"></div>
         <div class="col-md-5 silver-background">
           <h2 class="center-text">Generate a new Match Result</h2>
-          <form>
+          <form name="newPost" novalidate>
           <div class="row padding-15" id="deck_form">
             <div class="form-group">
               <h3>Deck:</h3>  
-              <select ng-model="newPost.deck_id" ng-options="deck.id as deck.name for deck in userDecks track by deck.id" ng-change="selectArchetypes()" class="form-control"></select>
+              <select ng-model="newPost.deck_id" ng-options="deck.id as deck.name for deck in userDecks track by deck.id" ng-change="selectArchetypes()" class="form-control" required></select>
             </div>
             <div class="form-group">
               <h3>Opposing Archetype:</h3>  
-              <select ng-model="newPost.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" class="form-control" ng-disabled="!newPost.deck_id"></select>
+              <select ng-model="newPost.archetype_id" ng-options="archetype.id as archetype.name for archetype in archetypes track by archetype.id" class="form-control" ng-disabled="!newPost.deck_id" required></select>
             </div>
             <div class="form-group">
             <h3>Result:</h3> 
@@ -21,10 +21,10 @@
             </div>
             <div class="form-group">
               <h3>Post Text:</h3>   
-              <textarea class="form-control no-resize" rows=7 ng-model="newPost.post_text"></textarea>
+              <textarea class="form-control no-resize" rows=7 ng-model="newPost.post_text" required></textarea>
             </div>
             <div class="form-group">
-              <button class="btn btn-default" ng-click="submitPost()">Submit Post</button>
+              <button type="submit" class="btn btn-default" ng-disabled="newPost.$invalid" ng-click="submitPost()">Submit Post</button>
             </div>
           </div>
           </form>

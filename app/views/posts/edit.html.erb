@@ -5,7 +5,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-5 silver-background">
           <h2>Edit Match Result Post</h2>
-          <form>
+          <form name="editPost" novalidate>
           <div class="row padding-15" id="deck_form">
             <div class="form-group">
               <h3>Deck:</h3>  
@@ -21,10 +21,10 @@
             </div>
             <div class="form-group">
               <h3>Post Text:</h3>   
-              <textarea class="form-control no-resize" rows=7 ng-model="post.post_text"></textarea>
+              <textarea class="form-control no-resize" rows=7 ng-model="post.post_text" required></textarea>
             </div>
             <div class="form-group">
-              <button class="btn btn-default" ng-click="submitPost()">Submit Post</button>
+              <button type="submit" class="btn btn-default" ng-click="submitPost()" ng-disabled="editPost.$invalid">Submit Post</button>
             </div>
           </div>
           </form>
