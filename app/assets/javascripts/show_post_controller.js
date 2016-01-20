@@ -43,5 +43,14 @@
         }
       }
     }
+    $scope.deleteComment = function(commentId) {
+      for (var i=0;i<$scope.comments.length; i++) {
+        if ($scope.comments[i].id === commentId) {
+          $http.delete("/api/v1/post_comments/" + commentId + ".json").then(function(response) {
+            $scope.comments = response.data;
+          });
+        }
+      }
+    }
   });
 }());

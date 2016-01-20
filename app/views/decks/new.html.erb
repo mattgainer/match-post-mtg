@@ -55,18 +55,14 @@
           </form>
         </div>
         <div class="col-sm-1"></div>
-        <div id="blog_post" class="col-sm-3">
-          <div class="sidebar">
-            <div class="box">
-              <div class="box last">
-                <div class="sidebar_header center-text">
-                  <div class="search-image">
-                    <img ng-src="{{foundCardImageURL}}" ng-if="foundCardName" class="img-responsive center-margin">
-                  </div>
-                  <div>
-                    <h3 ng-if="foundCardName" class="center-text">{{foundCardName}}</h3>
-                  </div>
-                </div>
+        <div class="col-sm-3">
+          <div class="silver-background sidebar-margins" data-spy="affix" data-offset-bottom="300">
+            <div class="center-text">
+              <div class="search-image">
+                <img ng-src="{{foundCardImageURL}}" ng-if="foundCardName" class="img-responsive center-margin">
+              </div>
+              <div>
+                <h3 ng-if="foundCardName" class="center-text">{{foundCardName}}</h3>
               </div>
             </div>
           </div>

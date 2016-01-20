@@ -66,7 +66,10 @@
                       <div><button ng-click="toggleEditing(comment.id)" class="btn btn-default btn-sm">Stop Editing Comment</button></div>
                     </form>
                   </div>
-                  <div><button ng-click="toggleEditing(comment.id)" ng-if="<%= current_user.id %>=== comment.user.id && !comment.editing" class="btn btn-default btn-sm">Edit Comment</button></div>
+                  <div>
+                    <button ng-click="toggleEditing(comment.id)" ng-if="<%= current_user.id %>=== comment.user.id && !comment.editing" class="btn btn-default btn-sm">Edit Comment</button>
+                    <button ng-click="deleteComment(comment.id)" ng-if="<%= current_user.id %>=== comment.user.id" class="btn btn-default btn-sm">Remove Comment</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -91,25 +94,22 @@
           <% end %>
         </div>
       </div>
-      <br>
       <!-- SideBar -->
       <div class="col-md-1"></div>
-      <div class="col-md-3" ng-controller="quickSearchCtrl">
+      <div class="col-sm-3" ng-controller="quickSearchCtrl">
         <datalist id="card_names" ng-if="cardName"><option ng-repeat="card in searchedCards">{{card.name}}</option></datalist>
-        <div class="sidebar">
-          <div class="box">
-            <div class="sidebar_header center-text"><h3>Quick Card Lookup</h3></div>
-            <div class="box last">
-              <div class="sidebar_header center-text">
-                <div class="search-image">
-                  <img ng-src="{{foundCardImageURL}}" ng-if="cardName" class="img-responsive center-margin ">
-                </div>
-                <div class="search-copy">
-                  <h4 class="left-indent">Card Name:</h4>
-                  <p><input list="card_names" ng-model="cardName" ng-keyup="lookUpCard(cardName)" class="form-control" autocomplete="on"></p>
-                  <h3 ng-if="cardName" class="center-text">{{foundCardName}}</h3>
-                  <button ng-if="cardName" clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy Card Name to Clipboard</button>
-                </div>
+        <div data-spy="affix" class="silver-background sidebar-margins" data-offset-bottom="300">
+          <div class="center-text"><h3>Quick Card Lookup</h3></div>
+          <div class="">
+            <div class="center-text">
+              <div class="search-image">
+                <img ng-src="{{foundCardImageURL}}" ng-if="cardName" class="img-responsive center-margin">
+              </div>
+              <div class="search-copy">
+                <h4 class="left-indent">Card Name:</h4>
+                <p><input list="card_names" ng-model="cardName" ng-keyup="lookUpCard(cardName)" class="form-control" autocomplete="on"></p>
+                <button ng-if="cardName" clipboard text="foundCardName" on-copied="success()" on-error="fail(err)" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy Card Name to Clipboard</button>
+                <h3 ng-if="cardName" class="center-text">{{foundCardName}}</h3>
               </div>
             </div>
           </div>
