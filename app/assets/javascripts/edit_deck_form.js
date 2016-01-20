@@ -43,11 +43,13 @@
       for (var i=0;i<number;i++) {
         $scope.newDeckCards.push({key_card:false, deck_id:$scope.deck.id});
       }
+      $scope.addToTotalQuantity();
     }
     $scope.removeDeckCard = function(number) {
       for (var i=0;i<number;i++) {
         $scope.newDeckCards.splice($scope.newDeckCards.length - 1, 1)
       }
+      $scope.addToTotalQuantity();
     }
     $scope.lookUpCard = function(card, index) {
       $http.get("https://api.deckbrew.com/mtg/cards?m=" + card.card_id).then(function(response) {
