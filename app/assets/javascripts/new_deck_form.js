@@ -41,11 +41,13 @@
       for (var i=0;i<number;i++) {
         $scope.newDeckCards.push({key_card: false});
       }
+      $scope.addToTotalQuantity();
     }
     $scope.removeDeckCard = function(number) {
       for (var i=0;i<number;i++) {
         $scope.newDeckCards.splice($scope.newDeckCards.length - 1, 1)
       }
+      $scope.addToTotalQuantity();
     }
     $scope.addToTotalQuantity = function() {
       var total = 0;
