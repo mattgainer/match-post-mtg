@@ -133,7 +133,7 @@
               <td>{{post.deck.user.username}}</td>
               <td ng-if="post.rating.avg">{{post.rating.avg}}</td>
               <td ng-if="!post.rating.avg">{{0.0}}</td>
-              <td ng-if="post.rating.count">{{deck.rating.count}}</td>
+              <td ng-if="post.rating.count">{{post.rating.count}}</td>
               <td ng-if="!post.rating.count">{{0.0}}</td>
             </tr>
             <tr ng-repeat="deck in shownDecks | orderBy: orderAttribute:direction" ng-if="typeOfSearch('deck', 'static')" ng-dblclick="goTo('deck', deck.id)">

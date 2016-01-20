@@ -2,7 +2,7 @@ class ArchetypesController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @archetypes = Archetype.all.order(:format_id, :name)
+    @archetypes = Archetype.where(removed:false).order(:format_id, :name)
   end
 
   def new
