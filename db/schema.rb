@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120034022) do
+ActiveRecord::Schema.define(version: 20160120233406) do
 
   create_table "archetypes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20160120034022) do
     t.datetime "updated_at",                                 null: false
     t.integer  "archetype_id", limit: 4
     t.integer  "result_id",    limit: 4
+    t.integer  "archeytpe_id", limit: 4
   end
 
   create_table "results", force: :cascade do |t|
