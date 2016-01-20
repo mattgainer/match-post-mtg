@@ -4,6 +4,7 @@ class Deck < ActiveRecord::Base
   has_many :posts
   has_many :deck_cards
   has_many :deck_comments
+  has_many :deck_ratings
   
   def dates
     {create: created_at.strftime("%D"),update: updated_at.strftime("%D")}

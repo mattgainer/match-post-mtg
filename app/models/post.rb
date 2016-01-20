@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :archetype
   belongs_to :result
   has_many :post_comments
+  has_many :post_ratings
 
   def dates
     {create: created_at.strftime("%D"),update: updated_at.strftime("%D")}

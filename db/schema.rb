@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160117232341) do
+ActiveRecord::Schema.define(version: 20160120034022) do
 
   create_table "archetypes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20160117232341) do
     t.boolean  "removed",                    default: false
   end
 
+  create_table "deck_ratings", force: :cascade do |t|
+    t.integer  "rating",     limit: 4
+    t.integer  "deck_id",    limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "decks", force: :cascade do |t|
     t.string   "name",         limit: 255
     t.integer  "user_id",      limit: 4
@@ -63,6 +71,14 @@ ActiveRecord::Schema.define(version: 20160117232341) do
     t.datetime "updated_at",                                 null: false
     t.integer  "post_id",      limit: 4
     t.boolean  "removed",                    default: false
+  end
+
+  create_table "post_ratings", force: :cascade do |t|
+    t.integer  "rating",     limit: 4
+    t.integer  "post_id",    limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "posts", force: :cascade do |t|

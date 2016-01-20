@@ -46,6 +46,32 @@
           </div>
         </div>
         <div class="comments col-md-12" ng-controller="showDeckCtrl" ng-init="initialize(<%= @deck.id %>, <%= current_user.id if current_user %>)">
+          <div class="show-section col-md-12">
+            <h3>Average Rating:
+              <strong ng-if="avgRating">{{avgRating}}</strong>
+              <strong ng-if="!avgRating">Unrated</strong>
+            </h3>
+            <h5 ng-if="iRated">
+              Rate This Deck:
+              <select ng-model="myRating.rating" ng-change="editRating(myRating.id)" class="form-control" style="width:50px">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </h5>
+            <h5 ng-if="!iRated">
+              Rate This Deck:
+              <select ng-model="myRating.rating" ng-change="addRating()" class="form-control" style="width:50px">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </h5>
+          </div>
           <h3>Comments:</h3>
           <div class="comment">
             <div class="row">

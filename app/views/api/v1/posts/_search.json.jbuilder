@@ -31,3 +31,7 @@ json.result do
   json.losses post.result.losses
   json.text_result post.result.text_result
 end
+json.rating do
+  json.count post.post_ratings.count
+  json.avg post.post_ratings.average(:rating)
+end

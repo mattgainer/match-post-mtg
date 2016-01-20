@@ -17,3 +17,7 @@ json.archetype do
     json.name deck.archetype.format.name
   end
 end
+json.rating do
+  json.count deck.deck_ratings.count
+  json.avg deck.deck_ratings.average(:rating)
+end

@@ -72,6 +72,16 @@
                 <span ng-if="showChevron(true, 'deck.user.username')" class="glyphicon glyphicon-chevron-up"></span>
                 <span ng-if="showChevron(false, 'deck.user.username')" class="glyphicon glyphicon-chevron-down"></span>
               </th>
+              <th ng-dblclick="toggleOrder('deck.rating.avg')">
+                Avg. Rating
+                <span ng-if="showChevron(true, 'deck.rating.avg')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'deck.rating.avg')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('deck.rating.count')">
+                # of Ratings
+                <span ng-if="showChevron(true, 'deck.rating.count')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'deck.rating.count')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
             </tr>
             <tr ng-if="typeOfSearch('deck', 'static')">
               <th></th>
@@ -100,6 +110,16 @@
                 <span ng-if="showChevron(true, 'user.username')" class="glyphicon glyphicon-chevron-up"></span>
                 <span ng-if="showChevron(false, 'user.username')" class="glyphicon glyphicon-chevron-down"></span>
               </th>
+              <th ng-dblclick="toggleOrder('post.rating.avg')">
+                Avg. Rating
+                <span ng-if="showChevron(true, 'post.rating.avg')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'post.rating.avg')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
+              <th ng-dblclick="toggleOrder('post.rating.count')">
+                # of Ratings
+                <span ng-if="showChevron(true, 'post.rating.count')" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-if="showChevron(false, 'post.rating.count')" class="glyphicon glyphicon-chevron-down"></span>
+              </th>
             </tr>
           </thead>
           <tbody >
@@ -111,6 +131,10 @@
               <td>{{post.deck.archetype.name}}</td>
               <td>{{post.archetype.name}}</td>
               <td>{{post.deck.user.username}}</td>
+              <td ng-if="post.rating.avg">{{post.rating.avg}}</td>
+              <td ng-if="!post.rating.avg">{{0.0}}</td>
+              <td ng-if="post.rating.count">{{deck.rating.count}}</td>
+              <td ng-if="!post.rating.count">{{0.0}}</td>
             </tr>
             <tr ng-repeat="deck in shownDecks | orderBy: orderAttribute:direction" ng-if="typeOfSearch('deck', 'static')" ng-dblclick="goTo('deck', deck.id)">
               <td>{{$index + 1 + startingIndex}}</td>
@@ -119,6 +143,10 @@
               <td>{{deck.name}}</td>
               <td>{{deck.archetype.name}}</td>
               <td>{{deck.user.username}}</td>
+              <td ng-if="deck.rating.avg">{{deck.rating.avg}}</td>
+              <td ng-if="!deck.rating.avg">{{0.0}}</td>
+              <td ng-if="deck.rating.count">{{deck.rating.count}}</td>
+              <td ng-if="!deck.rating.count">{{0.0}}</td>
             </tr>
           </tbody>
         </table>

@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :archetypes
   resources :formats
   resources :decks
-
   namespace :api do
     namespace :v1 do
       get "/posts/search", to: 'posts#search'
@@ -21,6 +20,8 @@ Rails.application.routes.draw do
       resources :results
       resources :deck_comments
       resources :post_comments
+      resources :post_ratings
+      resources :deck_ratings
     end
   end
 
