@@ -76,7 +76,7 @@
     $scope.addComment = function() {
       $http.post("/api/v1/post_comments.json", $scope.newComment).then(function(response) {
         $scope.comments.push(response.data);
-        $scope.newComment = {post_id: response.data.post_id, user_id: response.data.user_id}
+        $scope.newComment = {post_id: response.data[0].post_id, user_id: response.data[0].user_id}
       });
     }
     $scope.toggleEditing = function(commentId) {
